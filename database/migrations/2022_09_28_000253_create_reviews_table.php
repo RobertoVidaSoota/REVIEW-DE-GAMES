@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_review', 191);
             $table->text('desc_review');
-            $table->string('thumb', 191);
+            $table->string('thumb', 320);
             $table->date('date_review');
             $table->double('rate');
 

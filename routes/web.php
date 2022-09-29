@@ -16,20 +16,33 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Dashboard');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+Route::get('/login', function () {
+    return Inertia::render('Auth/Login');
 });
+
+Route::get('/cadastrarse', function () {
+    return Inertia::render('Auth/Register');
+});
+
+Route::get('/review', function() {
+    return Inertia::render('ReviewGames/PaginaReview');
+});
+
+// LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
+// Route::middleware(['auth'])->group(function() 
+// {
+    Route::get('/perfil', function () {
+        return Inertia::render('Auth/Perfil');
+    });
+
+    Route::get('/cadastrar-review', function() {
+        return Inertia::render('ReviewGames/CadastrarReview');
+    });
+
+    Route::get('/listar-reviews', function() {
+        return Inertia::render('ReviewGames/ListarReviews');
+    });
+// });
