@@ -19,14 +19,6 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 });
 
-Route::get('/login', function () {
-    return Inertia::render('Auth/Login');
-});
-
-Route::get('/cadastrarse', function () {
-    return Inertia::render('Auth/Register');
-});
-
 Route::get('/review', function() {
     return Inertia::render('ReviewGames/PaginaReview');
 });
