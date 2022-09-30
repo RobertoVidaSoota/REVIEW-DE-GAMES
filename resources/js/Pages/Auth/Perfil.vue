@@ -15,10 +15,12 @@
               Sou um cara normal
             </p>
             <div id="box_button_review_prefil_user">
-              <button class="botao_confirmar">
+              <button @click="navPage('/cadastrar-review')"
+              class="botao_confirmar">
                 Cadastrar review
               </button>
-              <button class="botao_cancelar">
+              <button @click="navPage('/listar-reviews')" 
+              class="botao_cancelar">
                 Minhas reviews
               </button>
             </div>
@@ -86,7 +88,13 @@
 
       }
     },
-    methods:{},
+    methods:
+    {
+      navPage(route)
+      {
+        location.href = route
+      }
+    },
     components:{MenuCustom}
   }
 </script>
