@@ -3,7 +3,7 @@
 
         <div class="container-fluid">
 
-            <a href="/" class="logo navbar-brand">
+            <a href="/review" class="logo navbar-brand">
                 REVIWW
             </a>
         
@@ -34,21 +34,29 @@
     </nav>
   </template>
 
+<script>
+import route from '../../../vendor/tightenco/ziggy/src/js';
+
+export default {
+    name: "MenuCustom"
+}
+</script>
+
 
 <style>
 .logo
-   {
-      margin: 0;
-      padding: 20px 12px !important;
-   }
-   #menu
-   {
-         background: var(--branco-menu);
-         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-         margin: 0 0 50px 0;
-   }
-   .nav-link
-   {
-      padding: 20px 12px !important;
-   }
+{
+    margin: 0;
+    padding: 20px 12px !important;
+}
+#menu
+{
+        background: var(--branco-menu);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+        margin: 0 0 50px 0;
+}
+.nav-link
+{
+    padding: 20px 12px !important;
+}
 </style>

@@ -13,6 +13,7 @@
     --branco-menu: #DCF6F0;
     --preto: #000000;
     --azul-destaque: #12B0A7;
+    --vermelho-botao: #932222;
 }
 
 
@@ -48,15 +49,30 @@ a:hover{color: var(--azul-destaque);}
     background-color: var(--azul-destaque);
     color: var(--branco);
 }
+.botao_cancelar
+{
+    background-color: var(--vermelho-botao);
+    color: var(--branco);
+}
+.botao_medio
+{
+    background-color: var(--bordas-input);
+    color: var(--branco);
+}
+.esconder_elemento{display: none;}
 
 
 /* TAGS REFERENCE */
 button
 {
-    padding: 15px;
+    padding: 5px 15px;
     font-size: 14px;
     border: none;
     outline: none;
+}
+label
+{
+    color: var(--azul-destaque);
 }
 img
 {

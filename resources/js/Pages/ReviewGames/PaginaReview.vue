@@ -34,7 +34,7 @@
             <h4>Veja mais</h4>
             <div class="row">
 
-                <div class="col-sm-4">
+                <div class="col-sm-4 box_veja_mais" @click="navToReview">
 
                     <div class="box_img_veja_mais">
                         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffindyourinnergeek.ca%2Fwp-content%2Fuploads%2F2018%2F10%2FCall-of-Duty%25C2%25AE_-Black-Ops-4_20181015130712.jpg&f=1&nofb=1&ipt=6c3b24467316c2358aa5d8828f270e95c45122cb5538a5c309f49cceefa37bf5&ipo=images">
@@ -54,18 +54,26 @@
 
             <h4>Comentários</h4>
 
-            <button class="botao_confirmar mt-5">
+            <button id="botaoCancelar"
+             class="botao_cancelar mt-5 esconder_elemento" 
+            v-on:click="buttonComentar">
+                Cancelar
+            </button>
+
+            <button id="botaoComentar"
+            class="botao_confirmar mt-5"
+            v-on:click="buttonComentar">
                 Comentar
             </button>
 
-            <!-- <div id="box_form_comentario">
-                <form action="">
+            <div id="box_form_comentario" class="esconder_elemento">
+                <form action="" >
                     <input type="text"> 
                     <button class="botao_confirmar">
                         Enviar
                     </button>
                 </form>
-            </div> -->
+            </div>
 
             <div id="many_coments">
 
@@ -94,8 +102,49 @@
 
 
 
-<script setup>
+<script>
     import MenuCustom from '@/MyElements/MenuCustom.vue'
+
+    export default
+    {
+        data()
+        {
+            return{
+            }
+        },
+        methods:
+        {
+            buttonComentar()
+            {
+                let comentar = document.querySelector("#botaoComentar")
+                let cancelar = document.querySelector("#botaoCancelar")
+                let boxCampoComentario = 
+                document.querySelector("#box_form_comentario")
+
+                if(boxCampoComentario.classList.contains("esconder_elemento"))
+                {
+                    boxCampoComentario.classList.remove("esconder_elemento")
+                    cancelar.classList.remove("esconder_elemento")
+                    comentar.classList.add("esconder_elemento")
+                }
+                else
+                {
+                    boxCampoComentario.classList.add("esconder_elemento")
+                    cancelar.classList.add("esconder_elemento")
+                    comentar.classList.remove("esconder_elemento")
+                }
+            },
+            navToReview()
+            {
+                location.href = "/review"
+            }
+        },
+        components:
+        {
+            MenuCustom
+        }
+    }
+    
 </script>
 
 
@@ -106,6 +155,7 @@
         margin: 0 auto;
         width: 90%;
     }
+    .box_veja_mais{cursor: pointer;}
     .box_title_rate_content_review,
     .box_title_rate_veja_mais
     {
@@ -124,6 +174,10 @@
     {
         margin: 70px 0 0 0;
     }
+    #content_veja_mais h2
+    {
+        width: 70%;
+    }
 
     /* COMENTÁRIOS */
     #content_coments
@@ -133,7 +187,13 @@
     }
     #box_form_comentario
     {
+        margin: 20px 0 0 0;
+    }
+    #box_form_comentario form
+    {
         display: flex;
+        justify-content: space-between;
+        gap: 0 10px;
     }
     #many_coments
     {
