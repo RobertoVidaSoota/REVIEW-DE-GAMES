@@ -2,10 +2,7 @@
   <h1>Listar Reviews</h1>
 </template>
 
-<script>
-export default {
-
-}
+<script setup>
 </script>
 
 <style>

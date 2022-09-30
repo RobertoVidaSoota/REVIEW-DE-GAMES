@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/review', function() {
     return Inertia::render('ReviewGames/PaginaReview');
-});
+})->name('review');
 
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
 // Route::middleware(['auth'])->group(function() 
