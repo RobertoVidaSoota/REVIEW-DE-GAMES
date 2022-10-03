@@ -3,7 +3,7 @@
 
         <div class="container-fluid">
 
-            <a href="/review" class="logo navbar-brand">
+            <a href="/review/1" class="logo navbar-brand">
                 REVIWW
             </a>
         
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
                 <div class="ms-auto">
-                    <a href="/perfil" class="nav-link">perfil</a>
+                    <a href="/perfil/1" class="nav-link">perfil</a>
                 </div>
             </div>
         </div>

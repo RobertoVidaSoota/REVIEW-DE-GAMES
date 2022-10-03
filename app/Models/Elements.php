@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Elements extends Model
 {
     use HasFactory;
+
+    public $fillable = 
+    [
+        'name_element',
+        'text_element',
+        'fk_id_reviews'
+    ];
 }

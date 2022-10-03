@@ -136,7 +136,7 @@
             },
             navToReview()
             {
-                location.href = "/review"
+                location.href = "/review/1"
             }
         },
         components:

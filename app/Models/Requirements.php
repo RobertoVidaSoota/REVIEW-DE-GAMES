@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Requirements extends Model
 {
     use HasFactory;
+
+    public $fillable = 
+    [
+        'hardware',
+        'value',
+        'level',
+        'fk_id_videogame'
+    ];
 }

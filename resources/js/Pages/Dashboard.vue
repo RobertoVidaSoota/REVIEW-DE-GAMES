@@ -29,7 +29,7 @@ import MenuCustom from '@/MyElements/MenuCustom.vue'
 
 const navToReview = () => 
 {
-   location.href = "/review"
+   location.href = "/review/1"
 }
 </script>
 

@@ -19,14 +19,14 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 });
 
-Route::get('/review', function() {
+Route::get('/review/{id}', function() {
     return Inertia::render('ReviewGames/PaginaReview');
 });
 
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
 // Route::middleware(['auth'])->group(function() 
 // {
-    Route::get('/perfil', function () {
+    Route::get('/perfil/{id}', function () {
         return Inertia::render('Auth/Perfil');
     });
 
