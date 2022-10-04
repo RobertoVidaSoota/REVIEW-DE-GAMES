@@ -24,12 +24,38 @@
 
 
 
-<script setup>
+<script>
 import MenuCustom from '@/MyElements/MenuCustom.vue'
 
-const navToReview = () => 
+export default
 {
-   location.href = "/review/1"
+   data()
+   {
+      return{
+      }
+   },
+   mounted()
+   {
+   },
+   methods:
+   {
+      navToReview()
+      {
+         location.href = "/review/1"
+      },
+      showReview()
+      {
+         console.log(this.$props.reviews)
+      }
+   },
+   props: 
+   [
+      'reviews'
+   ],
+   components:
+   {
+      MenuCustom
+   }
 }
 </script>
 

@@ -139,6 +139,12 @@
                 location.href = "/review/1"
             }
         },
+        props:[
+            'review',
+            'elements',
+            'seeMore',
+            'coments'
+        ],
         components:
         {
             MenuCustom

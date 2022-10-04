@@ -10,9 +10,8 @@ class ComentsController extends Controller
     public function getComentOneReview($id_review)
     {
         $coments = DB::table('coments')
-        ->join("users", 'comments.fk_id_users', "=", "users.id")
-        ->where("comments.fk_id_review", "=", $id_review)->get();
-        return $coments;
+        ->where("coments.fk_id_reviews", "=", $id_review)->get();
+        return $coments ? $coments : '';
     }
 
 
@@ -28,6 +27,6 @@ class ComentsController extends Controller
             "fk_id_users" => $id_user,
             "fk_id_review" => $id_review
         ]);
-        dd($coments);
+        return $coments ? $coments : '';
     }
 }

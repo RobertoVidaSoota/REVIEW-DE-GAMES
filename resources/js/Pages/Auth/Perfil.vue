@@ -88,6 +88,10 @@
 
       }
     },
+    mounted()
+    {
+      console.log(this.$props.userData)
+    },
     methods:
     {
       navPage(route)
@@ -95,6 +99,9 @@
         location.href = route
       }
     },
+    props:[
+      'userData'
+    ],
     components:{MenuCustom}
   }
 </script>

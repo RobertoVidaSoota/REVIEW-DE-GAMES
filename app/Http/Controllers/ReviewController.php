@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ReviewController extends Controller
 {
@@ -12,8 +13,11 @@ class ReviewController extends Controller
         $reviews = DB::table('reviews')
         ->join('users', 'fk_id_users', '=', 'users.id')
         ->limit(20)->get();
-
-        dd($reviews);
+        for($i = 0; $i < count($reviews); $i++)
+        {
+            $reviews[$i]->password = "";
+        }
+        return Inertia::render('Dashboard', ['reviews' => $reviews]);
     }
 
 
@@ -22,32 +26,35 @@ class ReviewController extends Controller
     {
         $group = $req->group;
         $sub_group = $req->sub_group;
-        dd($req);
         $reviews = DB::table('reviews')
-        ->join('users', 'fk_id_users', '=', 'users.id')
-        ->join('videogames', $group, '=', $sub_group)
+        ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+        ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
+        ->where($group, '=', $sub_group)
         ->limit(20)->get();
-
-        dd($reviews);
+        for($i = 0; $i < count($reviews); $i++)
+        {
+            $reviews[$i]->password = "";
+        }
+        return response()->json(['reviews' => $reviews]);
     }
 
 
 
     public function getOneReview(Request $req, ElementsController $element, ComentsController $coment)
     {
-        $id_review = $req->id;
-        dd($req);
+        $id_review = $req->id_review;
         $reviews = DB::table('reviews')
-        ->join('users', 'reviews.fk_id_users', '=', 'users.id')
-        ->where('review.id', "=", $id_review)
+        ->where('reviews.id', "=", $id_review)
         ->limit(20)->get();
         $elements = $element->getElementsOneReview($id_review);
-        $seeMore = DB::table('reviews')
-        ->join('users', 'fk_id_users', '=', 'users.id')
-        ->limit(3)->get();
+        $seeMore = DB::table('reviews')->limit(3)->get();
         $coments = $coment->getComentOneReview($id_review);
-
-        dd($reviews);
+        return Inertia::render('ReviewGames/PaginaReview', [ 
+            'review' => $reviews,
+            'elements' => $elements,
+            'seeMore' => $seeMore,
+            'coments' => $coments
+        ]);
     }
 
 
@@ -76,6 +83,12 @@ class ReviewController extends Controller
             'fk_id_users' => $req->id_user
         ]);
         dd($review);
+        $elements = DB::table('elements')
+        ->insert([
+            'name_element' => $req->name_element,
+            'text_element' => $req->text_element,
+            'fk_id_reviews' => ''
+        ]);
         $videogame = DB::table('review')
         ->insert([
             'name_game' => $req->name_game,
@@ -84,14 +97,15 @@ class ReviewController extends Controller
             'gender' => $req->gender,
             'version' => $req->version,
             'year' => $req->year,
-            'fk_id_review' => ''
+            'fk_id_reviews' => ''
         ]);
         dd($videogame);
-        $elements = DB::table('elements')
+        $requirements = DB::table('elements')
         ->insert([
-            'name_element' => $req->name_element,
-            'text_element' => $req->text_element,
-            'fk_id_review' => ''
+            'hardware' => $req->hardware,
+            'value' => $req->value,
+            'level' => $req->level,
+            'fk_id_videogames' => ''
         ]);
     }
 
@@ -99,8 +113,8 @@ class ReviewController extends Controller
 
     public function getUserReview(Request $req)
     {
-        $reviews = DB::table('reviews')
-        ->where('fk_id_users', '=', $req->id_user)->limit(10)->get();
-        dd($reviews);
+        $review = DB::table('reviews')
+        ->where('reviews.fk_id_users', '=', $req->id_user)->limit(10)->get();
+        return $review;
     }
 }

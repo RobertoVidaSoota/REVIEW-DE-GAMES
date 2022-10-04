@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\{
+    ReviewController,
+    UserController
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,20 +19,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Dashboard');
-});
+Route::get('/', [ReviewController::class, "getAllReviews"]);//
 
-Route::get('/review/{id}', function() {
-    return Inertia::render('ReviewGames/PaginaReview');
-});
+Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
 
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
 // Route::middleware(['auth'])->group(function() 
 // {
-    Route::get('/perfil/{id}', function () {
-        return Inertia::render('Auth/Perfil');
-    });
+    Route::get('/perfil/{id_user}', [UserController::class, 'getProfileData']);//
 
     Route::get('/cadastrar-review', function() {
         return Inertia::render('ReviewGames/CadastrarReview');

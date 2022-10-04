@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('/get-all-reviews', [ReviewController::class], "getAllReviews");
+Route::get('/get-reviews-group/{group}/{sub_group}', 
+[ReviewController::class, "getReviewsGroup"]);//
 
-Route::get('/get-reviews-group/{group}', [ReviewController::class], "getReviewsGroup");
+

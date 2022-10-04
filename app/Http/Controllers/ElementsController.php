@@ -10,7 +10,7 @@ class ElementsController extends Controller
     public function getElementsOneReview($id_review)
     {
         $elements = DB::table('elements')
-        ->where("fk_id_review", '=', $id_review)->get();
-        return $elements;
+        ->where("elements.fk_id_reviews", '=', $id_review)->get();
+        return $elements ? $elements : '';
     }
 }

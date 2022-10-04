@@ -46,9 +46,16 @@ class UserController extends Controller
 
     public function getProfileData(Request $req)
     {
-        $id_user = $req->id;
+        $id_user = $req->id_user;
         $user = DB::table('users')
-        ->where('id', '=', $id_user)->get();
-        dd($user);
+        ->where('users.id', '=', $id_user)->get();
+        return Inertia::render('Auth/Perfil', ['userData' => $user]);
+    }
+
+
+
+    public function getUserLogged(Request $req)
+    {
+        
     }
 }
