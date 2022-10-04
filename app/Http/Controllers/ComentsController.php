@@ -25,7 +25,7 @@ class ComentsController extends Controller
         ->insert([
             "text_coment" => $text_coment,
             "fk_id_users" => $id_user,
-            "fk_id_review" => $id_review
+            "fk_id_reviews" => $id_review
         ]);
         return $coments ? $coments : '';
     }

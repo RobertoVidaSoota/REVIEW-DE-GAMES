@@ -32,7 +32,5 @@ Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
         return Inertia::render('ReviewGames/CadastrarReview');
     });
 
-    Route::get('/listar-reviews', function() {
-        return Inertia::render('ReviewGames/ListarReviews');
-    });
+    Route::get('/listar-reviews', [ReviewController::class , 'getUserReview']);//
 // });

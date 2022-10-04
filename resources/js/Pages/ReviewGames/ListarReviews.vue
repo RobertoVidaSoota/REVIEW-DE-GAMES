@@ -47,7 +47,11 @@
 
           }
       },
-      methods:{}
+      mounted(){},
+      methods:{},
+      props:[
+        'UserReviews'
+      ]
   }
 </script>
 

@@ -115,6 +115,6 @@ class ReviewController extends Controller
     {
         $review = DB::table('reviews')
         ->where('reviews.fk_id_users', '=', $req->id_user)->limit(10)->get();
-        return $review;
+        return Inertia::render('ReviewGames/ListarReviews');
     }
 }

@@ -112,6 +112,9 @@
             return{
             }
         },
+        mounted()
+        {
+        },
         methods:
         {
             buttonComentar()
@@ -133,6 +136,19 @@
                     cancelar.classList.add("esconder_elemento")
                     comentar.classList.remove("esconder_elemento")
                 }
+            },
+            adicionarComentario()
+            {
+                axios.post('/api/add-coment', 
+                {
+                    text_coment: "Que horrível !",
+                    id_user: 1,
+                    id_review: 1
+                })
+                .then((res) => 
+                {
+                    console.log(res)
+                }, e => console.log(e))
             },
             navToReview()
             {

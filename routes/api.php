@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    ComentsController,
     ReviewController
 };
 use Illuminate\Http\Request;
@@ -21,4 +22,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/get-reviews-group/{group}/{sub_group}', 
 [ReviewController::class, "getReviewsGroup"]);//
 
-
+Route::post('/add-coment', [ComentsController::class, "addComent"]);//

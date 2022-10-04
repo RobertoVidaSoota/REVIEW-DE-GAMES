@@ -19,7 +19,7 @@
               class="botao_confirmar">
                 Cadastrar review
               </button>
-              <button @click="navPage('/listar-reviews')" 
+              <button @click="navPage('/listar-reviews/1')" 
               class="botao_cancelar">
                 Minhas reviews
               </button>
