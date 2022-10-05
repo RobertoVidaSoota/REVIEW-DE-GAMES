@@ -79,8 +79,60 @@
         data()
         {
             return{
-
             }
+        },
+        mounted()
+        {
+            axios.post('/api/add-review', 
+            {
+                titulo_pricipal: "Watch Dogs Legion é meia boca.",
+                thumb: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffindyourinnergeek.ca%2Fwp-content%2Fuploads%2F2018%2F10%2FCall-of-Duty%25C2%25AE_-Black-Ops-4_20181015130712.jpg&f=1&nofb=1&ipt=6c3b24467316c2358aa5d8828f270e95c45122cb5538a5c309f49cceefa37bf5&ipo=images",
+                desc_review: "Mais do mesmo",
+                rate: "3.7",
+                name_game: "Watch Dogs Legion",
+                collection: "Watch Dogs",
+                developer: "Ubisoft",
+                owner: "Ubisoft",
+                gender: "Mundo aberto",
+                version: "Basic",
+                year: "2021",
+                requirements: [
+                    {
+                        hardware: "OS",
+                        value: "Windows",
+                        level: "mínimo"
+                    },
+                    {
+                        hardware: "Processador",
+                        value: "AMD Readom 3.4 GHz",
+                        level: "mínimo"
+                    },
+                    {
+                        hardware: "RAM",
+                        value: "2GB",
+                        level: "mínimo"
+                    },
+                    {
+                        hardware: "Placa de Vídeo",
+                        value: "NVIDIA 4GB",
+                        level: "mínimo"
+                    },
+                ],
+                elements: [
+                    {
+                        name_element: "h2",
+                        text_element: "Primeiras Imprenssões"
+                    },
+                    {
+                        name_element: "p",
+                        text_element: "popopopopopopopo e nada tudo igual ao anterior."
+                    }
+                ]
+            })
+            .then((res) => 
+            {
+                console.log(res.data)
+            }, e => {console.log(e)})
         },
         methods:{}
     }

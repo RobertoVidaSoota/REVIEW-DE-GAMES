@@ -62,18 +62,24 @@ class ReviewController extends Controller
     public function addReview(Request $req)
     {
         $validateData = $req->validate([
-            "titulo_pricipal" => ['required', ['max', '180']],
+            'titulo_pricipal' => ['required', ['max', '180']],
             'thumb' => ['required', ['max', '320']],
             'desc_review' => ['required'],
             'rate' => ['required', 'number'],
             'name_game' => ['required', ['max', '180']],
+            'collection' => ['required', ['max', '180']],
             'developer' => ['required', ['max', '180']],
             'owner' => ['required', ['max', '180']],
             'gender' => ['required', ['max', '180']],
             'version' => ['required', ['max', '180']],
-            'year' => ['required', 'number', ['max' , '4']]
+            'year' => ['required', 'integer', ['max' , '4']],
+            'elements' => ['array'],
+            'elements.*' => [['max' , '180']],
+            'requirements' => ['array'],
+            'requirements.*' => [['max', '180']] 
         ]);
-        $review = DB::table('review')
+        return 'passou';
+        $review = DB::table('reviews')
         ->insert([
             'name_review' => $req->titulo_pricipal,
             'desc_review' => $req->desc_review,
@@ -82,17 +88,18 @@ class ReviewController extends Controller
             'rate' => $req->rate,
             'fk_id_users' => $req->id_user
         ]);
-        dd($review);
+        return $review;
         $elements = DB::table('elements')
         ->insert([
             'name_element' => $req->name_element,
             'text_element' => $req->text_element,
             'fk_id_reviews' => ''
         ]);
-        $videogame = DB::table('review')
+        $videogame = DB::table('videogames')
         ->insert([
             'name_game' => $req->name_game,
             'developer' => $req->developer,
+            'collection' => $req->collection,
             'owner' => $req->owner,
             'gender' => $req->gender,
             'version' => $req->version,
@@ -100,7 +107,7 @@ class ReviewController extends Controller
             'fk_id_reviews' => ''
         ]);
         dd($videogame);
-        $requirements = DB::table('elements')
+        $requirements = DB::table('requirements')
         ->insert([
             'hardware' => $req->hardware,
             'value' => $req->value,
