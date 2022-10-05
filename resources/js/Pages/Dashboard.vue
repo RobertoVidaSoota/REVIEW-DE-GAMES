@@ -45,13 +45,13 @@ export default
       },
       showReview()
       {
-         console.log(this.$props.reviews)
       }
    },
    props: 
-   [
-      'reviews'
-   ],
+   {
+      reviews: Array,
+      userLogged: Object
+   },
    components:
    {
       MenuCustom

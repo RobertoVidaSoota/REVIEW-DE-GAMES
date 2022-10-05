@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -14,13 +15,13 @@ class UserController extends Controller
         $password = bcrypt($req->password);
         $validateData = $req->validate([
             'email' => ['email', 'required'],
-            'password' => ['required']
+            'password' => ['required', ['min', '6']]
         ]);
-        if(\Auth::attempt(['email' => $email, 'password' => $password]))
+        if(Auth::attempt(['email' => $email, 'password' => $password]))
         {
-            dd(\Auth::user());
+            dd(Auth::user());
         }
-        dd(\Auth::user());
+        dd(Auth::user());
     }
 
 

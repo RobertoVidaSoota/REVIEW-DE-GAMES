@@ -62,7 +62,7 @@ class ReviewController extends Controller
     public function addReview(Request $req)
     {
         $validateData = $req->validate([
-            'titulo_pricipal' => ['required', ['max', '180']],
+            'titulo_pricipal' => ['required', ['max', '180']],//
             'thumb' => ['required', ['max', '320']],
             'desc_review' => ['required'],
             'rate' => ['required', 'number'],
