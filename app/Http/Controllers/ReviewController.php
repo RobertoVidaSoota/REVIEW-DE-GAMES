@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Elements;
+use App\Models\Requirements;
+use App\Models\Reviews;
+use App\Models\Videogames;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -62,41 +66,39 @@ class ReviewController extends Controller
     public function addReview(Request $req)
     {
         $validateData = $req->validate([
-            'titulo_pricipal' => ['required', ['max', '180']],//
-            'thumb' => ['required', ['max', '320']],
+            'titulo_pricipal' => ['required', 'max:180'],//
+            'thumb' => ['required', 'max:320'],
             'desc_review' => ['required'],
-            'rate' => ['required', 'number'],
-            'name_game' => ['required', ['max', '180']],
-            'collection' => ['required', ['max', '180']],
-            'developer' => ['required', ['max', '180']],
-            'owner' => ['required', ['max', '180']],
-            'gender' => ['required', ['max', '180']],
-            'version' => ['required', ['max', '180']],
-            'year' => ['required', 'integer', ['max' , '4']],
+            'rate' => ['required'],
+            'name_game' => ['required', 'max:180'],
+            'collection' => ['required', 'max:180'],
+            'developer' => ['required', 'max:180'],
+            'owner' => ['required', 'max:180'],
+            'gender' => ['required', 'max:180'],
+            'version' => ['required', 'max:180'],
+            'year' => ['required', 'max:4'],
             'elements' => ['array'],
-            'elements.*' => [['max' , '180']],
+            'elements.*' => ['max:180'],
             'requirements' => ['array'],
-            'requirements.*' => [['max', '180']] 
+            'requirements.*' => ['max:180'] 
         ]);
-        return 'passou';
-        $review = DB::table('reviews')
-        ->insert([
+        $review = Reviews::create([
             'name_review' => $req->titulo_pricipal,
             'desc_review' => $req->desc_review,
             'thumb' => $req->thumb,
-            'date_review' => date('d/m/Y'),
+            'date_review' => date('y-m-d'),
             'rate' => $req->rate,
             'fk_id_users' => $req->id_user
         ]);
-        return $review;
-        $elements = DB::table('elements')
-        ->insert([
-            'name_element' => $req->name_element,
-            'text_element' => $req->text_element,
-            'fk_id_reviews' => ''
-        ]);
-        $videogame = DB::table('videogames')
-        ->insert([
+        for($i = 0; $i < count($req->elements); $i++)
+        {
+            $elements = Elements::create([
+                'name_element' => $req->elements[$i]["name_element"],
+                'text_element' => $req->elements[$i]["text_element"],
+                'fk_id_reviews' => $review->id
+            ]);
+        }
+        $videogame = Videogames::create([
             'name_game' => $req->name_game,
             'developer' => $req->developer,
             'collection' => $req->collection,
@@ -104,16 +106,18 @@ class ReviewController extends Controller
             'gender' => $req->gender,
             'version' => $req->version,
             'year' => $req->year,
-            'fk_id_reviews' => ''
+            'fk_id_reviews' => $review->id
         ]);
-        dd($videogame);
-        $requirements = DB::table('requirements')
-        ->insert([
-            'hardware' => $req->hardware,
-            'value' => $req->value,
-            'level' => $req->level,
-            'fk_id_videogames' => ''
-        ]);
+        for($i = 0; $i < count($req->requirements); $i++)
+        {
+            $requirements = Requirements::create([
+                'hardware' => $req->requirements[$i]["hardware"],
+                'value' => $req->requirements[$i]["value"],
+                'level' => $req->requirements[$i]["level"],
+                'fk_id_videogames' => $videogame->id
+            ]);
+        }
+        return true;
     }
 
 

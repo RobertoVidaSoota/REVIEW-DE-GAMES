@@ -14,6 +14,6 @@ class Requirements extends Model
         'hardware',
         'value',
         'level',
-        'fk_id_videogame'
+        'fk_id_videogames'
     ];
 }

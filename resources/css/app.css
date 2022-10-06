@@ -25,7 +25,7 @@
     margin-bottom: 60px;
     color: var(--azul-destaque);
 }
-input
+select, textarea, input
 {
     width: 100%;
     height: 45px;

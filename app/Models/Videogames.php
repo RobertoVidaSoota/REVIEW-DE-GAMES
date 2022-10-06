@@ -15,8 +15,9 @@ class Videogames extends Model
         'collection',
         'developer',
         'owner',
-        'gnder',
+        'gender',
         'year',
-        'version'
+        'version',
+        'fk_id_reviews'
     ];
 }

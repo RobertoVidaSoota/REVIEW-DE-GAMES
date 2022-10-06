@@ -15,7 +15,7 @@ class UserController extends Controller
         $password = bcrypt($req->password);
         $validateData = $req->validate([
             'email' => ['email', 'required'],
-            'password' => ['required', ['min', '6']]
+            'password' => ['required', ['min:6']]
         ]);
         if(Auth::attempt(['email' => $email, 'password' => $password]))
         {
@@ -29,7 +29,7 @@ class UserController extends Controller
     public function makeRegister(Request $req)
     {
         $validateData = $req->validate([
-            "name_user" => ['required', ['max' , '40']],
+            "name_user" => ['required', ['max:40']],
             "email" => ['required', 'email'],
             "password" => ['required']
         ]);
@@ -53,10 +53,4 @@ class UserController extends Controller
         return Inertia::render('Auth/Perfil', ['userData' => $user]);
     }
 
-
-
-    public function getUserLogged(Request $req)
-    {
-        
-    }
 }
