@@ -11,13 +11,19 @@
                 </h2>
 
                 <!-- FORMULÁRIO -->
-                <form @submit.prevent="submit">
+                <form @submit.prevent="sendFormLogin" >
+
+                    <div v-show="erroForm!==undefined" class="alert alert-danger">
+                        <b>{{ erroForm }}</b>
+                    </div>
+
                     <div>
                         <label for="email">Email</label>
                         <input 
                             id="email" 
                             type="email" 
                             v-model="form.email" 
+                            name="email"
                             placeholder="exemplo@mail.com.br"
                             required 
                             autofocus>
@@ -29,6 +35,7 @@
                             id="password" 
                             v-model="form.password" 
                             type="password"
+                            name="password"
                             placeholder="*************"
                             required 
                             autocomplete="current-password" 
@@ -39,7 +46,7 @@
                         <div class="row">
 
                             <div class="col">
-                                <button class="botao_confirmar">
+                                <button class="botao_confirmar" type="submit">
                                     Login
                                 </button>
                             </div>
@@ -71,17 +78,26 @@
                 form:{
                     email: '',
                     password: '',
-                    remember: false,
-                }
+                },
             }
         },
+        mounted(){},
         methods:
         {
-    
+            sendFormLogin()
+            {
+                let body = {email: this.form.email, password: this.form.password}
+                axios.post('/make-login-user', body)
+                .then(res => console.log(res), e => console.log(e))
+            }
         },
         components:
         {
             
+        },
+        props:
+        {
+            erroForm: String
         }
     }
 </script>

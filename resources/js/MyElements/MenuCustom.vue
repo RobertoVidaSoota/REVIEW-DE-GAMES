@@ -27,8 +27,15 @@
                     </li>
                 </ul>
                 <div class="ms-auto">
-                    <a href="/perfil/1" class="nav-link">perfil</a>
+                    <a href="/perfil/1" class="nav-link">
+                       perfil
+                    </a>
                 </div>
+                <!-- <div class="ms-auto">
+                    <a href="/login" v-show="!userLogged.id" class="nav-link">
+                        Fazer login
+                    </a>
+                </div> -->
             </div>
         </div>
     </nav>
@@ -36,7 +43,11 @@
 
 <script>
 export default {
-    name: "MenuCustom"
+    name: "MenuCustom",
+    props: 
+    {
+    //   userLogged: Object
+    },
 }
 </script>
 

@@ -19,13 +19,16 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [ReviewController::class, "getAllReviews"]);//
+Route::get('/', [ReviewController::class, "getAllReviews"])
+->name('dashboard');//
+
+Route::post('/make-login-user', [UserController::class , "makeLogin"]);
 
 Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
 
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
-// Route::middleware(['auth'])->group(function() 
-// {
+Route::middleware(['auth'])->group(function() 
+{
     Route::get('/perfil/{id_user}', [UserController::class, 'getProfileData']);//
 
     Route::get('/cadastrar-review', function() {
@@ -33,4 +36,4 @@ Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
     });
 
     Route::get('/listar-reviews', [ReviewController::class , 'getUserReview']);//
-// });
+});

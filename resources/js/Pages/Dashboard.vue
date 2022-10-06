@@ -36,6 +36,8 @@ export default
    },
    mounted()
    {
+      axios.get('/api/user-logged').then
+      ((res) => console.log(res), e => console.log(e))
    },
    methods:
    {

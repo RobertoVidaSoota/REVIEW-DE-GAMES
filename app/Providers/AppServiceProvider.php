@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // RETORNA NULL
         Inertia::share('userLogged', Auth::user());
     }
 }

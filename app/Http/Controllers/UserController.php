@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Calculator\Inn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -9,19 +10,23 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function makeLogin(Request $req)
+    public function makeLogin(Request $req, ReviewController $review)
     {
         $email = $req->email;
-        $password = bcrypt($req->password);
+        $password = $req->password;
         $validateData = $req->validate([
             'email' => ['email', 'required'],
-            'password' => ['required', ['min:6']]
+            'password' => ['required', 'min:6']
         ]);
         if(Auth::attempt(['email' => $email, 'password' => $password]))
         {
-            dd(Auth::user());
+            return "logei";
         }
-        dd(Auth::user());
+        else
+        {
+            return "Email ou senha invalidos";
+        }
+
     }
 
 
@@ -53,4 +58,10 @@ class UserController extends Controller
         return Inertia::render('Auth/Perfil', ['userData' => $user]);
     }
 
+
+
+    public function getUserLogged()
+    {
+        return Auth::user();
+    }
 }

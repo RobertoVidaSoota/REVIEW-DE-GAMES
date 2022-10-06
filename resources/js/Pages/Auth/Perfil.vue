@@ -23,6 +23,7 @@
               class="botao_cancelar">
                 Minhas reviews
               </button>
+              <a href="#" @click.prevent="logOutUser()" class="logout">Sair</a>
             </div>
           </div>
 
@@ -97,7 +98,8 @@
       navPage(route)
       {
         location.href = route
-      }
+      },
+      logOutUser(){axios.post('/logout').then(res => this.navPage("/login"))}
     },
     props:[
       'userData'
@@ -139,6 +141,10 @@
 {
   height: 150px;
   width: 150px;
+}
+.logout{
+  display: block;
+  color: var(--vermelho-botao);
 }
 
 </style>
