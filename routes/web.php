@@ -23,6 +23,8 @@ Route::get('/', [ReviewController::class, "getAllReviews"]);//
 
 Route::post('/make-login-user', [UserController::class , "makeLogin"]);//
 
+Route::post('/add-register', [UserController::class, "makeRegister"]);//
+
 Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
 
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
@@ -32,7 +34,7 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('/cadastrar-review', function() {
         return Inertia::render('ReviewGames/CadastrarReview');
-    });
+    });//
 
     Route::get('/listar-reviews', [ReviewController::class , 'getUserReview']);//
 });

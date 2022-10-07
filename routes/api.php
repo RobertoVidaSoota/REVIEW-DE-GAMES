@@ -27,4 +27,3 @@ Route::post('/add-coment', [ComentsController::class, "addComent"]);//
 
 Route::post('/add-review', [ReviewController::class, "addReview"]);//
 
-

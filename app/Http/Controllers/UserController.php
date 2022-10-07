@@ -31,18 +31,27 @@ class UserController extends Controller
     public function makeRegister(Request $req)
     {
         $validateData = $req->validate([
-            "name_user" => ['required', ['max:40']],
+            "name_user" => ['required', 'min:8','max:40'],
             "email" => ['required', 'email'],
-            "password" => ['required']
+            "password" => ['required', 'min:6', 'same:password_confirmation'],
+            "password_confirmation" => ['min:6']
         ]);
-        $user = DB::table('users')
-        ->insert([
+        $user = DB::table('users')->insert([
             'name' => $req->name_user,
             'role' => 'normal',
             'email' => $req->email,
-            'password' => bcrypt($req->password)
+            'password' => bcrypt($req->password),
+            'image_user' => '',
+            'about' => '',
         ]);
-        dd($user);
+        if(Auth::attempt($req->only('email', 'password')))
+        {
+            return "Cadastro efetuado";
+        }
+        else
+        {
+            return "Email ou senha invalidos";
+        }
     }
 
 
