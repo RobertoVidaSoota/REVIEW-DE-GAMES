@@ -1,5 +1,5 @@
 <template>
-    <MenuCustom />
+    <MenuCustom :idUserContext="idUserPf" />
 
     <div class="container">
 
@@ -23,7 +23,7 @@
               class="botao_cancelar">
                 Minhas reviews
               </button>
-              <a href="#" @click.prevent="logOutUser()" class="logout">Sair</a>
+              
             </div>
           </div>
 
@@ -69,6 +69,8 @@
                 Editar
               </button>
             </div>
+
+            <a href="#" @click.prevent="logOutUser()" class="logout">Sair</a>
           </div>
         </div>
       </div>
@@ -86,12 +88,12 @@
     data()
     {
       return{
-
+        idUserPf: ""
       }
     },
     mounted()
     {
-      console.log(this.$props.userData)
+      this.idUserPf = this.user.id ? this.user.id : '';
     },
     methods:
     {
@@ -101,9 +103,10 @@
       },
       logOutUser(){axios.post('/logout').then(res => this.navPage("/login"))}
     },
-    props:[
-      'userData'
-    ],
+    props:{
+        userData: Object,
+        user: Object
+    },
     components:{MenuCustom}
   }
 </script>

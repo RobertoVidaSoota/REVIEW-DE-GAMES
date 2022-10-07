@@ -26,16 +26,16 @@
                         <a href="#" class="nav-link">Desenvolvedora</a>
                     </li>
                 </ul>
-                <div class="ms-auto">
+                <div class="ms-auto" v-show="idUserContext">
                     <a href="/perfil/1" class="nav-link">
                        perfil
                     </a>
                 </div>
-                <!-- <div class="ms-auto">
-                    <a href="/login" v-show="!userLogged.id" class="nav-link">
+                <div class="ms-auto" v-show="idUserContext==''">
+                    <a href="/login" class="nav-link">
                         Fazer login
                     </a>
-                </div> -->
+                </div>
             </div>
         </div>
     </nav>
@@ -44,9 +44,19 @@
 <script>
 export default {
     name: "MenuCustom",
+    data()
+    {
+        return{
+        }
+    },
+    mounted()
+    {
+        console.log(this.idUserContext)
+    },
     props: 
     {
-    //   userLogged: Object
+      user: Object,
+      idUserContext: String
     },
 }
 </script>

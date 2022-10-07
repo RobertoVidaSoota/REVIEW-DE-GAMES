@@ -13,7 +13,7 @@
                 <!-- FORMULÁRIO -->
                 <form @submit.prevent="sendFormLogin" >
 
-                    <div v-show="erroForm!==undefined" class="alert alert-danger">
+                    <div v-show="erroForm!==''" class="alert alert-danger">
                         <b>{{ erroForm }}</b>
                     </div>
 
@@ -79,6 +79,7 @@
                     email: '',
                     password: '',
                 },
+                erroForm: ""
             }
         },
         mounted(){},
@@ -88,7 +89,15 @@
             {
                 let body = {email: this.form.email, password: this.form.password}
                 axios.post('/make-login-user', body)
-                .then(res => console.log(res), e => console.log(e))
+                .then(res => {
+                    if(res.data == "login efetuado")
+                    {
+                        location.href = "/"
+                    }else
+                    {this.erroForm = res.data}
+                }, e => {
+                    this.erroForm = Object.values(e.response.data.errors)[0][0]
+                })
             }
         },
         components:
@@ -97,7 +106,6 @@
         },
         props:
         {
-            erroForm: String
         }
     }
 </script>

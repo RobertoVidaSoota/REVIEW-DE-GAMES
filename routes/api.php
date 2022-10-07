@@ -27,5 +27,4 @@ Route::post('/add-coment', [ComentsController::class, "addComent"]);//
 
 Route::post('/add-review', [ReviewController::class, "addReview"]);//
 
-Route::get('/user-logged',
-[UserController::class , "getUserLogged"]);
+

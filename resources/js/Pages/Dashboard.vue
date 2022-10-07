@@ -1,5 +1,5 @@
 <template>
-   <MenuCustom></MenuCustom>
+   <MenuCustom :idUserContext="idUserDash"></MenuCustom>
 
    <div class="container">
 
@@ -32,12 +32,12 @@ export default
    data()
    {
       return{
+         idUserDash: ""
       }
    },
    mounted()
    {
-      axios.get('/api/user-logged').then
-      ((res) => console.log(res), e => console.log(e))
+      this.idUserDash = this.user.id ? this.user.id : '';
    },
    methods:
    {
@@ -52,7 +52,7 @@ export default
    props: 
    {
       reviews: Array,
-      userLogged: Object
+      user: Object
    },
    components:
    {

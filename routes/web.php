@@ -19,10 +19,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [ReviewController::class, "getAllReviews"])
-->name('dashboard');//
+Route::get('/', [ReviewController::class, "getAllReviews"]);//
 
-Route::post('/make-login-user', [UserController::class , "makeLogin"]);
+Route::post('/make-login-user', [UserController::class , "makeLogin"]);//
 
 Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
 
