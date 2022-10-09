@@ -3,7 +3,7 @@
 
         <div class="container-fluid">
 
-            <a href="/review/1" class="logo navbar-brand">
+            <a href="/" class="logo navbar-brand">
                 REVIWW
             </a>
         
@@ -51,7 +51,6 @@ export default {
     },
     mounted()
     {
-        console.log(this.idUserContext)
     },
     props: 
     {
@@ -70,9 +69,9 @@ export default {
 }
 #menu
 {
-        background: var(--branco-menu);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-        margin: 0 0 50px 0;
+    background: var(--branco-menu);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    margin: 0 0 50px 0;
 }
 .nav-link
 {
