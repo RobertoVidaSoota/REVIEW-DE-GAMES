@@ -8,11 +8,11 @@
             <a href="/perfil/1">Voltar</a>
         </div>
 
-        <h2>Adicionar review</h2>
-
         <div v-show="erroForm!==''" class="alert alert-danger">
             <b>{{ erroForm }}</b>
         </div>
+
+        <h2>Adicionar review</h2>
 
         <!-- FORMULÁRIO DE REVIEW -->
         <div id="box_form_review">
@@ -145,8 +145,7 @@ export default {
             axios.post('/api/add-review', body).then(res => 
             {
                 if(res.data == true){
-                    // location.href = "/perfil/".body.id_user
-                    console.log("foi")
+                    location.href = "/perfil/".body.id_user
                 }
             }, e => { 
               this.erroForm = Object.values(e.response.data.errors)[0][0]

@@ -16,7 +16,7 @@ class ReviewController extends Controller
     {
         $reviews = DB::table('reviews')
         ->join('users', 'fk_id_users', '=', 'users.id')
-        ->limit(20)->get();
+        ->limit(20)->orderBy('reviews.id', 'desc')->get();
         for($i = 0; $i < count($reviews); $i++)
         {
             $reviews[$i]->password = "";
@@ -69,7 +69,7 @@ class ReviewController extends Controller
             'titulo_principal' => ['required', 'max:180'],
             'thumb' => ['required', 'url', 'max:320'],
             'desc_review' => ['required'],
-            'rate' => ['required'],
+            'rate' => ['required', 'numeric', 'digits_between:1,5'],
             'name_game' => ['required', 'max:180'],
             'collection' => ['required', 'max:180'],
             'developer' => ['required', 'max:180'],

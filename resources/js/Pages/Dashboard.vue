@@ -3,18 +3,21 @@
 
    <div class="container">
 
-      <div class="reviews_inicio row" @click="navToReview">
+      <div class="reviews_inicio row" >
          
-         <div class="col-sm-3 review">
+         <div v-for="r in reviews" :key="r.id"
+         class="col-sm-6 col-md-4 col-lg-3 review" @click="navToReview(r.id)">
             <div class="box_img_review">
-               <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1lss44hh2trtw.cloudfront.net%2Fassets%2Farticle%2F2020%2F10%2F26%2Fwatch-dogs-legion-review_feature.jpg&f=1&nofb=1&ipt=5f2121ff8ca64168d78954720d0d7a678622923de050b6fa972cc1dbc16062c8&ipo=images">
+               <img :src="r.thumb">
             </div>
             <div class="box_title_rate_review d-flex">
-               <h2>Watch Dogs Legion</h2>
-               <p>4.6</p>
+               <h2>{{ r.name_review }}</h2>
+               <p class="rate">
+                  {{ r.rate }}
+               </p>
             </div>
             <p>
-               by Thiago Mordido
+               by {{ r.name }}
             </p>
          </div>
 
@@ -37,17 +40,15 @@ export default
    },
    mounted()
    {
+      console.log(this.reviews)
       this.idUserDash = this.user.id ? this.user.id : '';
    },
    methods:
    {
-      navToReview()
+      navToReview(id)
       {
-         location.href = "/review/1"
+         location.href = "/review/".id
       },
-      showReview()
-      {
-      }
    },
    props: 
    {
@@ -73,6 +74,18 @@ export default
    {
       cursor: pointer;
    }
+   .rate
+   {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      background: var(--azul-destaque);
+      color: var(--branco);
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+      margin: 5px 0 0 0;
+   }
    .review:hover{
       border: 1px solid var(--bordas-input);
       padding: 6px;
@@ -81,4 +94,5 @@ export default
    {
       justify-content: space-between;
    }
+   .box_title_rate_review h2{width: fit-content;}
 </style>
