@@ -10,50 +10,63 @@
 
         <h2>Adicionar review</h2>
 
+        <div v-show="erroForm!==''" class="alert alert-danger">
+            <b>{{ erroForm }}</b>
+        </div>
+
         <!-- FORMULÁRIO DE REVIEW -->
         <div id="box_form_review">
-            <form @submit.prevent="pera">
+            <form v-on:submit.prevent="sendAddReview">
 
                 <div class="box_input_review">
-                    <input v-model="titulo_pricipal" type="text" placeholder="Título principal">
+                    <input v-model="titulo_principal"
+                    type="text" placeholder="Título principal">
                 </div>
 
                 <div class="box_input_review">
-                    <textarea v-model="desc_review" type="text" placeholder="Conteudo da review"></textarea>
+                    <input v-model="thumb" type="url" placeholder="Link da imagem de capa">
+                </div>
+
+                <div class="box_input_review">
+                    <textarea v-model="desc_review" 
+                    type="text"  @input="transformTextMD($event)"
+                    placeholder="Conteudo da review (Markdown)"></textarea>
                 </div>
 
                 <h2>Informações do game</h2>
 
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="name_game" type="text" placeholder="Nome do jogo">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="gender" type="text" placeholder="Gênero">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="collection" type="text" placeholder="Franquia">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="developer" type="text" placeholder="Desenvolvedora">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="owner" type="text" placeholder="Distribuidora">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="version" type="text" placeholder="Versão">
                 </div>
                 <div class="box_input_review">
-                    <input type="text" placeholder="">
+                    <input v-model="year" type="text" placeholder="Ano de lançamento">
                 </div>
 
                 <h2>Requisitos</h2>
 
                 <div class="box_input_review">
-                    <textarea placeholder="Requisitos" cols="30" rows="10"></textarea>
+                    <textarea v-model="requirementsGame" 
+                    placeholder="Requisitos para jogar no computador (Markdown)" 
+                    cols="30" rows="10"></textarea>
                 </div>
 
                 <div class="box_input_review">
-                    <input type="text" placeholder="Nota Final">
+                    <input v-model="rate" type="text" placeholder="Nota Final">
                 </div>
 
                 <div id="box_button_submit_review">
@@ -68,12 +81,14 @@
     <div id="preview_review">
 
         <h1>
-            {{ titulo_pricipal }}
+            {{ titulo_principal }}
         </h1>
 
-        <p> {{ desc_review }} </p>
+        <img :src="thumb">
+
+        <div id="preview_content"></div>
     </div>
-    
+
     </div>  
   </div>
 </template>
@@ -85,7 +100,7 @@
 export default {
     data(){
         return{
-            titulo_pricipal: "",
+            titulo_principal: "",
             thumb: "",
             desc_review: "",
             rate: "",
@@ -96,39 +111,47 @@ export default {
             gender: "",
             version: "",
             year: "",
-            requirementsGame: ""
-            }
+            requirementsGame: "",
+            erroForm: "",
+        }
     },
     methods:
     {
+        transformTextMD(e)
+        {
+            let content = document.querySelector("#preview_content")
+            var converter = new showdown.Converter()
+            let text = e.target.value
+            content.innerHTML = converter.makeHtml(text)
+        },
         sendAddReview()
+        {
+            let body = 
             {
-                // body = 
-                // {
-                //     titulo_pricipal: this.titulo_pricipal,
-                //     thumb: this.thumb,
-                //     desc_review: this.desc_review,
-                //     rate: this.rate,
-                //     name_game: this.name_game,
-                //     collection: this.collection,
-                //     developer: this.developer,
-                //     owner: this.owner,
-                //     gender: this.gender,
-                //     version: this.version,
-                //     year: this.year,
-                //     requirements: this.requirementsGame,
-                //     id_user: this.user.id
-                // }
-                console.log($page.titulo_principal)
-                // axios.post('/api/add-review', 
-                // {
-                    
-                // })
-                // .then((res) => 
-                // {
-                //     console.log(res.data)
-                // }, e => {console.log(e)})
-            }   
+                titulo_principal: this.titulo_principal,
+                thumb: this.thumb,
+                desc_review: this.desc_review,
+                rate: this.rate,
+                name_game: this.name_game,
+                collection: this.collection,
+                developer: this.developer,
+                owner: this.owner,
+                gender: this.gender,
+                version: this.version,
+                year: this.year,
+                requirements: this.requirementsGame,
+                id_user: this.user.id
+            }
+            axios.post('/api/add-review', body).then(res => 
+            {
+                if(res.data == true){
+                    // location.href = "/perfil/".body.id_user
+                    console.log("foi")
+                }
+            }, e => { 
+              this.erroForm = Object.values(e.response.data.errors)[0][0]
+            })
+        }   
     },
     components:
     {
@@ -179,5 +202,16 @@ export default {
     height: 100vh;
     padding: 20px;
     border: 1px solid var(--bordas-input);
+    overflow-y: auto;
 }
+#preview_review img
+{
+    display: block;
+    width: 100%;
+}
+#preview_content
+{
+    word-wrap: break-word;
+}
+
 </style>

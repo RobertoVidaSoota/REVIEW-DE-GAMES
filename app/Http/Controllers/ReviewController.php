@@ -66,8 +66,8 @@ class ReviewController extends Controller
     public function addReview(Request $req)
     {
         $validateData = $req->validate([
-            'titulo_pricipal' => ['required', 'max:180'],//
-            'thumb' => ['required', 'max:320'],
+            'titulo_principal' => ['required', 'max:180'],
+            'thumb' => ['required', 'url', 'max:320'],
             'desc_review' => ['required'],
             'rate' => ['required'],
             'name_game' => ['required', 'max:180'],
@@ -77,27 +77,17 @@ class ReviewController extends Controller
             'gender' => ['required', 'max:180'],
             'version' => ['required', 'max:180'],
             'year' => ['required', 'max:4'],
-            'elements' => ['array'],
-            'elements.*' => ['max:180'],
-            'requirements' => ['array'],
-            'requirements.*' => ['max:180'] 
+            'requirements' => ['required'],
+            'id_user' => ['required', 'int']
         ]);
         $review = Reviews::create([
-            'name_review' => $req->titulo_pricipal,
-            'desc_review' => $req->desc_review,
+            'name_review' => $req->titulo_principal,
+            'desc_review' => $req->desc_review.' ## Requisitos '.$req->requirements,
             'thumb' => $req->thumb,
             'date_review' => date('y-m-d'),
             'rate' => $req->rate,
             'fk_id_users' => $req->id_user
         ]);
-        for($i = 0; $i < count($req->elements); $i++)
-        {
-            $elements = Elements::create([
-                'name_element' => $req->elements[$i]["name_element"],
-                'text_element' => $req->elements[$i]["text_element"],
-                'fk_id_reviews' => $review->id
-            ]);
-        }
         $videogame = Videogames::create([
             'name_game' => $req->name_game,
             'developer' => $req->developer,
@@ -108,15 +98,6 @@ class ReviewController extends Controller
             'year' => $req->year,
             'fk_id_reviews' => $review->id
         ]);
-        for($i = 0; $i < count($req->requirements); $i++)
-        {
-            $requirements = Requirements::create([
-                'hardware' => $req->requirements[$i]["hardware"],
-                'value' => $req->requirements[$i]["value"],
-                'level' => $req->requirements[$i]["level"],
-                'fk_id_videogames' => $videogame->id
-            ]);
-        }
         return true;
     }
 
