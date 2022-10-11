@@ -26,20 +26,16 @@ class ReviewController extends Controller
     }
 
 
-    // NÃO PEGOU
+    
     public function getReviewsGroup(Request $req)
     {
-        sleep(1);
         $group = $req->group;
-        $sub_group = $req->sub_group;
-        $validateData = $req->validate([
-            'group' => ['required', 'max:30'],
-            'sub_group' => ['required', 'max:30']
-        ]);
+        $sub_group = $req->sub_group;        
         if($group === 'year')
         {
             $my_years = explode("-", $sub_group);
             $reviews = DB::table('reviews')
+            ->select("*", DB::raw("reviews.id as reviews_id"))
             ->join('users', 'reviews.fk_id_users', '=', 'users.id')
             ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
             ->whereBetween('videogames.'.$group, [$my_years[0], $my_years[1]])
@@ -48,6 +44,7 @@ class ReviewController extends Controller
         else
         {
             $reviews = DB::table('reviews')
+            ->select("*", DB::raw("reviews.id as reviews_id"))
             ->join('users', 'reviews.fk_id_users', '=', 'users.id')
             ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
             ->where('videogames.'.$group, '=', $sub_group)
@@ -62,18 +59,19 @@ class ReviewController extends Controller
 
 
 
-    public function getOneReview(Request $req, ElementsController $element, ComentsController $coment)
+    public function getOneReview(Request $req, ComentsController $coment)
     {
         $id_review = $req->id_review;
         $reviews = DB::table('reviews')
-        ->where('reviews.id', "=", $id_review)
-        ->limit(20)->get();
-        $elements = $element->getElementsOneReview($id_review);
-        $seeMore = DB::table('reviews')->limit(3)->get();
+        ->select("*", DB::raw("reviews.id as reviews_id"))
+        ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+        ->where('reviews.id', "=", $id_review)->get();
+        $date_create = date_create($reviews[0]->date_review);
+        $reviews[0]->date_review = date_format($date_create, "d/m/Y");
+        $seeMore = DB::table('reviews')->orderBy('id', 'desc')->limit(3)->get();
         $coments = $coment->getComentOneReview($id_review);
         return Inertia::render('ReviewGames/PaginaReview', [ 
             'review' => $reviews,
-            'elements' => $elements,
             'seeMore' => $seeMore,
             'coments' => $coments
         ]);

@@ -57,7 +57,9 @@
                         <a href="#" class="nav-link">Desenvolvedora</a>
                         <div class="box_nav_item_down">
                             <p><a href="/get-reviews-group/developer/EA">EA</a></p>
-                            <p><a href="/get-reviews-group/developer/Activion">Activion</a></p>
+                            <p><a href="/get-reviews-group/developer/Activision">
+                                Activision
+                            </a></p>
                             <p><a href="/get-reviews-group/developer/Ubisoft">Ubisoft</a></p>
                             <p><a href="/get-reviews-group/developer/Sony">Sony</a></p>
                         </div>

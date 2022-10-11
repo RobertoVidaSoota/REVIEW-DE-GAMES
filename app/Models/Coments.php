@@ -11,6 +11,7 @@ class Coments extends Model
 
     public $fillable = 
     [
+        'id',
         'text_coment',
         'fk_id_reviews',
         'fk_id_users'

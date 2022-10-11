@@ -1,95 +1,112 @@
 <template>
-    <MenuCustom />
+    <MenuCustom :idUserContext="idUserDash" />
 
     <div class="container">
         
-        <section id="content_review">
+        <section v-for="r in review" :key="r.review_id"
+        id="content_review">
 
             <div class="box_title_rate_content_review d-flex">
                 <h1>
-                    Watch Dogs Legion
+                    {{ r.name_review }}
                 </h1>
                 <div>
-                    4.6
+                    {{ r.rate }}
                 </div>
             </div>
 
-            <small class="d-block">by Thiago Mordido</small>
-            <small class="d-block">28/12/2021</small>
+            <small class="d-block">by {{ r.name }}</small>
+            <small class="d-block">{{ r.date_review }}</small>
 
             <div class="box_imd_content_review">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1lss44hh2trtw.cloudfront.net%2Fassets%2Farticle%2F2020%2F10%2F26%2Fwatch-dogs-legion-review_feature.jpg&f=1&nofb=1&ipt=5f2121ff8ca64168d78954720d0d7a678622923de050b6fa972cc1dbc16062c8&ipo=images">
+                <img :src="r.thumb">
             </div>
 
-            <p class="p-review">
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-            </p>
+            <div class="desc_review">
+            </div>
             
         </section>
+
 
 
         <!-- VEJA MAIS -->
         <section id="content_veja_mais">
 
             <h4>Veja mais</h4>
+
             <div class="row">
 
-                <div class="col-sm-4 box_veja_mais" @click="navToReview">
+                <div v-for="s in seeMore" :key="s.id"
+                class="col-sm-6 col-md-4 box_veja_mais" @click="navToReview(s.id)">
 
                     <div class="box_img_veja_mais">
-                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffindyourinnergeek.ca%2Fwp-content%2Fuploads%2F2018%2F10%2FCall-of-Duty%25C2%25AE_-Black-Ops-4_20181015130712.jpg&f=1&nofb=1&ipt=6c3b24467316c2358aa5d8828f270e95c45122cb5538a5c309f49cceefa37bf5&ipo=images">
+                        <img :src="s.thumb">
                     </div>
                     <div class="box_title_rate_veja_mais d-flex">
-                        <h2>Call of Duty:Black Ops 4</h2>
-                        <p>3.1</p>
+                        <h2>{{ s.name_review }}</h2>
+                        <p>{{ s.rate }}</p>
                     </div>
-                    <p>by Thiago Mordido</p>
                 </div>
+
             </div>
         </section>
 
 
-        <!-- COMENTÁRIOS -->
+
+        <!-- ADICIONAR COMENTÁRIOS -->
         <div id="content_coments">
 
             <h4>Comentários</h4>
 
-            <button id="botaoCancelar"
+            <button v-show="user.length!==0"
+            id="botaoCancelar"
              class="botao_cancelar mt-5 esconder_elemento" 
             v-on:click="buttonComentar">
                 Cancelar
             </button>
 
-            <button id="botaoComentar"
+            <button v-show="user.length!==0"
+            id="botaoComentar"
             class="botao_confirmar mt-5"
             v-on:click="buttonComentar">
                 Comentar
             </button>
 
-            <div id="box_form_comentario" class="esconder_elemento">
-                <form action="" >
-                    <input type="text"> 
+            <div v-show="user.length!==0"
+            id="box_form_comentario" class="esconder_elemento">
+                <div v-show="erroComent!==''"
+                class="alert alert-danger">
+                    <b>{{ erroComent }}</b>
+                </div>
+                <form @submit.prevent="adicionarComentario" action="">
+                    <input v-model="text_coment" type="text"> 
                     <button class="botao_confirmar">
                         Enviar
                     </button>
                 </form>
             </div>
 
+            <!-- COMENTS -->
             <div id="many_coments">
 
-                <div class="coment">
+                <p v-show="coments.length===0">
+                    Não há comentários para essa publicação
+                </p>
+
+                <div v-for="c in coments" :key="c.coment_id"
+                class="coment">
 
                     <div class="box_user_coment d-flex">
                         <div class="box_img_perfil_coment">
-                            <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600">
+                            <img :src="c.image_user">
                         </div>
                         <p class="name_user">
-                            Thiago Mordido
+                            {{ c.name }}
                         </p>
                     </div>
                     
                     <p class="coment_text">
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                       {{ c.text_coment }}
                     </p>
                 </div>
 
@@ -110,10 +127,15 @@
         data()
         {
             return{
+                text_coment: "",
+                idUserDash: "",
+                erroComent: ""
             }
         },
         mounted()
         {
+            this.idUserDash = this.user.id ? this.user.id : '';
+            this.transformToHtml(this.review[0].desc_review)
         },
         methods:
         {
@@ -141,25 +163,37 @@
             {
                 axios.post('/api/add-coment', 
                 {
-                    text_coment: "Que horrível !",
-                    id_user: 1,
-                    id_review: 1
+                    text_coment: this.text_coment,
+                    id_user: this.user.id,
+                    id_review: location.pathname.split('/')[2]
                 })
                 .then((res) => 
                 {
-                    console.log(res)
-                }, e => console.log(e))
+                    this.coments.unshift(res.data[0])
+                    console.log(res.data)
+                }, e => {
+                    console.log(e)
+                    this.erroComent = 
+                        Object.values(e.response.data.errors)[0][0]
+                })
             },
-            navToReview()
+            transformToHtml(desc_review)
             {
-                location.href = "/review/1"
+                var converter = new showdown.Converter()
+                let newHtml = converter.makeHtml(desc_review)
+                let descDiv = document.querySelector(".desc_review")
+                descDiv.innerHTML = newHtml
+            },
+            navToReview(id)
+            {
+                location.href = "/review/"+id
             }
         },
         props:[
             'review',
-            'elements',
             'seeMore',
-            'coments'
+            'coments',
+            'user'
         ],
         components:
         {
@@ -190,6 +224,7 @@
     }
     .box_imd_content_review img{height: 80vh;}
     p.p-review{margin: 50px 0 0 0;}
+    .desc_review{margin: 40px 0 0 0;}
 
     /* VEJA MAIS */
     #content_veja_mais
@@ -233,6 +268,6 @@
         height: 50px; 
     }
     .box_img_perfil_coment img{height: 50px;}
-    .name_user{margin: auto 0 auto 30px;}
-    .coment_text{margin: 20px 0 0 0;}
+    .name_user{margin: auto 0 auto 10px;}
+    .coment_text{margin: 10px 0 0 0;}
 </style>

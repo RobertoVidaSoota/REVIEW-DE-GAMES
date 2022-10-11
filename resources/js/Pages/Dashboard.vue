@@ -3,7 +3,7 @@
 
    <div class="container">
 
-      <h2 v-show="reviews==undefined || reviews==null || reviews==[]">
+      <h2 v-show="reviews.length===0">
          Sem resultados
       </h2>
 
