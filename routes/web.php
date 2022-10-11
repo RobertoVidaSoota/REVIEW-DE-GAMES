@@ -27,6 +27,9 @@ Route::post('/add-register', [UserController::class, "makeRegister"]);//
 
 Route::get('/review/{id_review}', [ReviewController::class, "getOneReview"]);//
 
+Route::get('/get-reviews-group/{group}/{sub_group}', 
+[ReviewController::class, "getReviewsGroup"]);//
+
 // LOGIN OBRIGATÓRIO PARA TER ACESSO À ESTAS ROTAS
 Route::middleware(['auth'])->group(function() 
 {

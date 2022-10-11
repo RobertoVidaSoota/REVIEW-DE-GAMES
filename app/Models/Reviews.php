@@ -11,6 +11,7 @@ class Reviews extends Model
 
     public $fillable = 
     [
+        'id',
         'name_review',
         'desc_review',
         'thumb',

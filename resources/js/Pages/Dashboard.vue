@@ -3,10 +3,14 @@
 
    <div class="container">
 
-      <div class="reviews_inicio row" >
+      <h2 v-show="reviews==undefined || reviews==null || reviews==[]">
+         Sem resultados
+      </h2>
+
+      <div class="reviews_inicio row">
          
          <div v-for="r in reviews" :key="r.id"
-         class="col-sm-6 col-md-4 col-lg-3 review" @click="navToReview(r.id)">
+         class="col-sm-6 col-md-4 col-lg-3 review" @click="navToReview(r.reviews_id)">
             <div class="box_img_review">
                <img :src="r.thumb">
             </div>
@@ -40,14 +44,13 @@ export default
    },
    mounted()
    {
-      console.log(this.reviews)
       this.idUserDash = this.user.id ? this.user.id : '';
    },
    methods:
    {
       navToReview(id)
       {
-         location.href = "/review/".id
+         location.href = "/review/"+id
       },
    },
    props: 

@@ -15,6 +15,7 @@ class ReviewController extends Controller
     public function getAllReviews()
     {
         $reviews = DB::table('reviews')
+        ->select("*", DB::raw("reviews.id as reviews_id"))
         ->join('users', 'fk_id_users', '=', 'users.id')
         ->limit(20)->orderBy('reviews.id', 'desc')->get();
         for($i = 0; $i < count($reviews); $i++)
@@ -25,21 +26,38 @@ class ReviewController extends Controller
     }
 
 
-
+    // NÃO PEGOU
     public function getReviewsGroup(Request $req)
     {
+        sleep(1);
         $group = $req->group;
         $sub_group = $req->sub_group;
-        $reviews = DB::table('reviews')
-        ->join('users', 'reviews.fk_id_users', '=', 'users.id')
-        ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
-        ->where($group, '=', $sub_group)
-        ->limit(20)->get();
+        $validateData = $req->validate([
+            'group' => ['required', 'max:30'],
+            'sub_group' => ['required', 'max:30']
+        ]);
+        if($group === 'year')
+        {
+            $my_years = explode("-", $sub_group);
+            $reviews = DB::table('reviews')
+            ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+            ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
+            ->whereBetween('videogames.'.$group, [$my_years[0], $my_years[1]])
+            ->limit(20)->orderBy('reviews.id', 'desc')->get();
+        }
+        else
+        {
+            $reviews = DB::table('reviews')
+            ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+            ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
+            ->where('videogames.'.$group, '=', $sub_group)
+            ->limit(20)->orderBy('reviews.id', 'desc')->get();
+        }
         for($i = 0; $i < count($reviews); $i++)
         {
             $reviews[$i]->password = "";
         }
-        return response()->json(['reviews' => $reviews]);
+        return Inertia::render('Dashboard', ['reviews' => $reviews]);
     }
 
 
