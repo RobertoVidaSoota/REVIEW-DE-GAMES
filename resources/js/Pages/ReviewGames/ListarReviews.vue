@@ -3,21 +3,22 @@
   <div class="container">
 
     <div id="box_link_voltar">
-        <a href="/perfil">Voltar</a>
+        <a href="#" @click.prevent="nav('/perfil/'+user.id)">Voltar</a>
     </div>
 
     <div id="content_my_reviews">
 
-      <div class="my_review">
+      <div v-for="r in reviews" :key="r.id"
+      class="my_review">
 
         <div class="box_img_my_review">
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1lss44hh2trtw.cloudfront.net%2Fassets%2Farticle%2F2020%2F10%2F26%2Fwatch-dogs-legion-review_feature.jpg&f=1&nofb=1&ipt=5f2121ff8ca64168d78954720d0d7a678622923de050b6fa972cc1dbc16062c8&ipo=images">
+          <img :src="r.thumb">
         </div>
 
         <div class="box_titile_rate_my_review">
-          <h2 class="title_my-review">Watch Dogs Legion</h2>
+          <h2 class="title_my-review">{{ r.name_review }}</h2>
           <div class="rate_my_review">
-            4.6
+            {{ r.rate }}
           </div>
         </div>
         
@@ -44,13 +45,15 @@
       data()
       {
           return{
-
           }
       },
       mounted(){},
-      methods:{},
+      methods:{
+        nav(link){location.href = link}
+      },
       props:[
-        'UserReviews'
+        'reviews',
+        'user'
       ]
   }
 </script>
@@ -68,7 +71,7 @@
 }
 .my_review
 {
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
   width: 80%;
 }
 .box_img_my_review{

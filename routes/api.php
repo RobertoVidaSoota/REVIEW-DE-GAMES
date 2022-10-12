@@ -25,3 +25,9 @@ Route::post('/add-review', [ReviewController::class, "addReview"]);//
 
 Route::post('/update-profile', [UserController::class, "updateProfileData"]);//
 
+Route::post('/update-review', [ReviewController::class, "updateReview"]);
+
+Route::post('/update-coment', [ComentsController::class, "updateComent"]);
+
+Route::delete('/delete-review', [ReviewController::class, "deleteReview"]);
+
