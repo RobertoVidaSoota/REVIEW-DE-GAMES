@@ -12,6 +12,7 @@
     --branco: #ffffff;
     --branco-menu: #DCF6F0;
     --preto: #000000;
+    --pretinho: #333333;
     --azul-destaque: #12B0A7;
     --vermelho-botao: #932222;
 }
@@ -32,6 +33,11 @@ select, textarea, input
     background: var(--branco);
     padding: 0 0 0 10px;
     border: 1px solid var(--bordas-input);
+}
+textarea
+{
+    height: 100px;
+    padding: 10px 0 0 8px;
 }
 ::placeholder
 {
@@ -78,4 +84,8 @@ img
 {
     width: 100%;
     height: auto;
+}
+p
+{
+    color: var(--pretinho);
 }

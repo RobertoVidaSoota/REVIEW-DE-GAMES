@@ -1,5 +1,5 @@
 <template>
-    <MenuCustom :idUserContext="idUserPf" />
+    <MenuCustom :user="user" :idUserContext="idUserPf" />
 
     <div class="container">
 
@@ -10,16 +10,16 @@
             <div id="box_img_perfil_user">
               <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600">
             </div>
-            <h3>Thiago Mordido</h3>
+            <h3>{{ user.name }}</h3>
             <p>
-              Sou um cara normal
+              {{ user.about }}
             </p>
             <div id="box_button_review_prefil_user">
               <button @click="navPage('/cadastrar-review')"
               class="botao_confirmar">
                 Cadastrar review
               </button>
-              <button @click="navPage('/listar-reviews/1')" 
+              <button @click="navPage('/listar-reviews/'+user.id)" 
               class="botao_cancelar">
                 Minhas reviews
               </button>
@@ -30,47 +30,80 @@
 
           <div class="col-sm-6">
 
-            <div class="box_input_button_perfil">
-              <div class="box_input_perfil">
-                <label for="">Nome de usuário</label>
-                <input type="text" placeholder="nome de usuário">
-              </div>
-              <button class="botao_medio">
-                Editar
-              </button>
+            <div v-show="erroUpdateData"
+            class="alert alert-danger">
+              <b>{{ erroUpdateData }}</b>
             </div>
 
-            <div class="box_input_button_perfil">
-              <div class="box_input_perfil">
-                <label for="">Papel</label>
-                <input type="text" placeholder="papel">
-              </div>
-              <button class="botao_medio">
-                Editar
-              </button>
+            <div v-show="confirmUpdate"
+            class="alert alert-success">
+              <b>{{ confirmUpdate }}</b>
             </div>
-
-            <div class="box_input_button_perfil">
-              <div class="box_input_perfil">
-                <label for="">E-mail</label>
-                <input type="text" placeholder="e-mail">
+          
+            <form @submit.prevent="sendUpdateName" action="">
+              <div class="box_input_button_perfil">
+                <div class="box_input_perfil">
+                  <label for="">Nome de usuário</label>
+                  <input type="text" placeholder="nome de usuário"
+                  v-model="name_user">
+                </div>
+                <div class="box_button_perfil">
+                  <button class="botao_medio">
+                    Editar
+                  </button>
+                </div>
               </div>
-              <button class="botao_medio">
-                Editar
-              </button>
-            </div>
+            </form>
+            
 
-            <div class="box_input_button_perfil">
-              <div class="box_input_perfil">
-                <label for="">Senha</label>
-                <input type="text" placeholder="senha">
+            <form @submit.prevent="sendUpdateRole" action="">
+              <div class="box_input_button_perfil">
+                <div class="box_input_perfil">
+                  <label for="">Papel</label>
+                  <input type="text" placeholder="papel"
+                   v-model="role">
+                </div>
+                <div class="box_button_perfil">
+                  <button class="botao_medio">
+                    Editar
+                  </button>
+                </div>
               </div>
-              <button class="botao_medio">
-                Editar
-              </button>
-            </div>
+            </form>
 
-            <a href="#" @click.prevent="logOutUser()" class="logout">Sair</a>
+
+            <form @submit.prevent="sendUpdateAbout" action="">
+              <div class="box_input_button_perfil">
+                <div class="box_input_perfil">
+                  <label for="">Sobre</label>
+                  <textarea type="text" placeholder="Sobre"
+                   v-model="about"></textarea>
+                </div>
+                <div class="box_button_perfil">
+                  <button class="botao_medio">
+                    Editar
+                  </button>
+                </div>
+              </div>
+            </form>
+
+
+            <form @submit.prevent="sendUpdateEmail" action="">
+              <div class="box_input_button_perfil">
+                <div class="box_input_perfil">
+                  <label for="">E-mail</label>
+                  <input type="text" placeholder="e-mail"
+                   v-model="email">
+                </div>
+                <div class="box_button_perfil">
+                  <button class="botao_medio">
+                    Editar
+                  </button>
+                </div>
+              </div>
+            </form>
+            
+
           </div>
         </div>
       </div>
@@ -88,7 +121,12 @@
     data()
     {
       return{
-        idUserPf: ""
+        name_user: this.user.name,
+        role: this.user.role,
+        about: this.user.about,
+        email: this.user.email,
+        erroUpdateData: "",
+        confirmUpdate: ""
       }
     },
     mounted()
@@ -97,11 +135,38 @@
     },
     methods:
     {
+      sendUpdateName()
+      {
+        axios.post('/api/update-profile', {name_user: this.name_user, 
+          id_user: this.user.id})
+        .then(res => this.confirmUpdate = res.data, e => 
+        { this.erroUpdateData = Object.values(e.response.data.errors)[0][0]})
+      },
+      sendUpdateEmail()
+      {
+        axios.post('/api/update-profile', {email: this.email, 
+          id_user: this.user.id})
+        .then(res => this.confirmUpdate = res.data, e => 
+        { this.erroUpdateData = Object.values(e.response.data.errors)[0][0]})
+      },
+      sendUpdateRole()
+      {
+        axios.post('/api/update-profile', {role: this.role, 
+          id_user: this.user.id})
+        .then(res => this.confirmUpdate = res.data, e => 
+        { this.erroUpdateData = Object.values(e.response.data.errors)[0][0]})
+      },
+      sendUpdateAbout()
+      {
+        axios.post('/api/update-profile', {about: this.about, 
+          id_user: this.user.id})
+        .then(res => this.confirmUpdate = res.data, e => 
+        { this.erroUpdateData = Object.values(e.response.data.errors)[0][0]})
+      },
       navPage(route)
       {
         location.href = route
       },
-      logOutUser(){axios.post('/logout').then(res => this.navPage("/login"))}
     },
     props:{
         userData: Object,
@@ -122,10 +187,14 @@
   margin: 0 0 20px 0;
   gap: 0 10px;
 }
-.box_input_perfil
-{
-  width: 100%;
+form{width: 100%;}
+.box_input_perfil{width: 100%;}
+.box_button_perfil{
+  width: auto;
+  margin: auto 0 0 0;
 }
+.box_button_perfil button{height: 45px;}
+
 
 /* IMG E BUTTONS */
 .box_img_perfil_button_reviews h2

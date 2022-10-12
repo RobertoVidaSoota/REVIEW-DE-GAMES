@@ -65,12 +65,20 @@
                         </div>
                     </li>
                 </ul>
-                <div class="ms-auto" v-show="idUserContext">
-                    <a href="/perfil/1" class="nav-link">
-                       perfil
+                <div v-show="idUserContext" 
+                class="ms-auto nav-item">
+                    <a href="#" class="nav-link link_auth">
+                       {{ user.name }}
                     </a>
+                    <div class="box_nav_item_down">
+                        <p><a @click.prevent="nav('/perfil/'+user.id)" href="#">
+                            Perfil
+                        </a></p>
+                        <p><a @click.prevent="logOutUser()" href="#">Sair</a></p>
+                    </div>
                 </div>
-                <div class="ms-auto" v-show="idUserContext==''">
+                <div v-show="idUserContext==''" 
+                class="ms-auto nav-item">
                     <a href="/login" class="nav-link">
                         Fazer login
                     </a>
@@ -90,6 +98,11 @@ export default {
     },
     mounted()
     {
+    },
+    methods:
+    {
+        logOutUser(){axios.post('/logout').then(res => this.nav("/login"))},
+        nav(link){ location.href = link }
     },
     props: 
     {
@@ -113,6 +126,10 @@ export default {
     margin: 0 0 50px 0;
 }
 .navbar{padding:0;}
+.link_auth
+{
+    margin: 0 30px 0 0;
+}
 .nav-link
 {
     padding: 20px 12px !important;
@@ -127,6 +144,6 @@ export default {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
     border-top: 0;
 }
-li.nav-item:hover .box_nav_item_down
+.nav-item:hover .box_nav_item_down
 {display: block;}
 </style>

@@ -1,5 +1,5 @@
 <template>
-   <MenuCustom :idUserContext="idUserDash"></MenuCustom>
+   <MenuCustom :user="user" :idUserContext="idUserDash"></MenuCustom>
 
    <div class="container">
 

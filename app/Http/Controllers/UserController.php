@@ -63,4 +63,71 @@ class UserController extends Controller
         ->where('users.id', '=', $id_user)->get();
         return Inertia::render('Auth/Perfil', ['userData' => $user]);
     }
+
+
+
+    public function updateProfileData(Request $req)
+    {
+        if($req->name_user){$this->updateName($req);}
+        if($req->email){$this->updateEmail($req);}
+        if($req->role){$this->updateRole($req);}
+        if($req->about){$this->updateAbout($req);}
+        return "Alteração realizada.";
+    }
+
+
+
+    private function updateName($req)
+    {
+        $validateData = $req->validate([
+            'name_user' => ['required', 'max:30'],
+            'id_user' => ['required', 'integer']
+        ]);
+        $user = DB::table('users')->where('id', $req->id_user)->update([
+            'name' => $req->name_user,
+        ]);
+        return "Nome atualizado.";
+    }
+
+
+
+    private function updateEmail($req)
+    {
+        $validateData = $req->validate([
+            'email' => ['required', 'email'],
+            'id_user' => ['required', 'integer']
+        ]);
+        $user = DB::table('users')->where('id', $req->id_user)->update([
+            'email' => $req->email,
+        ]);
+        return "E-mail atualizado.";
+    }
+
+
+
+    private function updateRole($req)
+    {
+        $validateData = $req->validate([
+            'role' => ['required', 'max:30'],
+            'id_user' => ['required', 'integer']
+        ]);
+        $user = DB::table('users')->where('id', $req->id_user)->update([
+            'role' => $req->role,
+        ]);
+        return "Papel atualizado.";
+    }
+
+
+
+    private function updateAbout($req)
+    {
+        $validateData = $req->validate([
+            'about' => ['required'],
+            'id_user' => ['required', 'integer']
+        ]);
+        $user = DB::table('users')->where('id', $req->id_user)->update([
+            'about' => $req->about,
+        ]);
+        return "Sobre atualizado.";
+    }
 }

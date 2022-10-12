@@ -39,5 +39,5 @@ Route::middleware(['auth'])->group(function()
         return Inertia::render('ReviewGames/CadastrarReview');
     });//
 
-    Route::get('/listar-reviews', [ReviewController::class , 'getUserReview']);//
+    Route::get('/listar-reviews/{id_user}', [ReviewController::class , 'getUserReview']);//
 });

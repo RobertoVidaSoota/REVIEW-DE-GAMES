@@ -1,5 +1,5 @@
 <template>
-    <MenuCustom :idUserContext="idUserDash" />
+    <MenuCustom :user="user" :idUserContext="idUserDash" />
 
     <div class="container">
         
@@ -170,9 +170,8 @@
                 .then((res) => 
                 {
                     this.coments.unshift(res.data[0])
-                    console.log(res.data)
+                    this.buttonComentar()
                 }, e => {
-                    console.log(e)
                     this.erroComent = 
                         Object.values(e.response.data.errors)[0][0]
                 })

@@ -23,3 +23,5 @@ Route::post('/add-coment', [ComentsController::class, "addComent"]);//
 
 Route::post('/add-review', [ReviewController::class, "addReview"]);//
 
+Route::post('/update-profile', [UserController::class, "updateProfileData"]);//
+
