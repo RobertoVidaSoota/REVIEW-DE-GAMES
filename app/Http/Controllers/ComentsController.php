@@ -41,4 +41,34 @@ class ComentsController extends Controller
         ->where("coments.id", "=", $coments->id)->get();
         return $comentUser ? $comentUser : '';
     }
+
+
+
+    public function updateComent(Request $req)
+    {
+        $validateData = $req->validate([
+            'text_coment' => ['required'],
+            'id_user' => ['required'],
+            'id_review' => ['required']
+        ]);
+        $coment = Coments::where("fk_id_users", '=', $req->id_user)
+        ->where("fk_id_reviews", '=', $req->id_review)->update([
+            "text_coment" => $req->text_coment,
+        ]);
+        return "Alteração realizada.";
+    }
+
+
+
+    public function deleteComent(Request $req)
+    {
+        $validateData = $req->validate([
+            'id_user' => ['required'],
+            'id_review' => ['required']
+        ]);
+        $coment = DB::table('coments')
+        ->where("fk_id_users", '=', $req->id_user)
+        ->where("fk_id_reviews", '=', $req->id_review)->detete();
+        return "Exclusão realizada.";
+    }
 }

@@ -93,12 +93,11 @@ class ReviewController extends Controller
             'gender' => ['required', 'max:180'],
             'version' => ['required', 'max:180'],
             'year' => ['required', 'max:4'],
-            'requirements' => ['required'],
             'id_user' => ['required', 'int']
         ]);
         $review = Reviews::create([
             'name_review' => $req->titulo_principal,
-            'desc_review' => $req->desc_review.' ## Requisitos '.$req->requirements,
+            'desc_review' => $req->desc_review,
             'thumb' => $req->thumb,
             'date_review' => date('y-m-d'),
             'rate' => $req->rate,
@@ -125,5 +124,59 @@ class ReviewController extends Controller
         ->where('reviews.fk_id_users', '=', $req->id_user)
         ->limit(5)->orderBy('reviews.id', 'desc')->get();
         return Inertia::render('ReviewGames/ListarReviews', ['reviews' => $review]);
+    }
+
+
+
+    public function updateReview(Request $req)
+    {
+        $validateData = $req->validate([
+            'titulo_principal' => ['required', 'max:180'],
+            'thumb' => ['required', 'url', 'max:320'],
+            'desc_review' => ['required'],
+            'rate' => ['required', 'numeric', 'digits_between:1,5'],
+            'name_game' => ['required', 'max:180'],
+            'collection' => ['required', 'max:180'],
+            'developer' => ['required', 'max:180'],
+            'owner' => ['required', 'max:180'],
+            'gender' => ['required', 'max:180'],
+            'version' => ['required', 'max:180'],
+            'year' => ['required', 'max:4'],
+            'id_user' => ['required', 'int'],
+            'id_review' => ['required']
+        ]);
+        $review = Reviews::where('fk_id_users', $req->id_user)
+        ->update([
+            'name_review' => $req->titulo_principal,
+            'desc_review' => $req->desc_review,
+            'thumb' => $req->thumb,
+            'date_review' => date('y-m-d'),
+            'rate' => $req->rate,
+        ]);
+        $videogame = Videogames::where('fk_id_reviews', $req->id_review)
+        ->update([
+            'name_game' => $req->name_game,
+            'developer' => $req->developer,
+            'collection' => $req->collection,
+            'owner' => $req->owner,
+            'gender' => $req->gender,
+            'version' => $req->version,
+            'year' => $req->year,
+        ]);
+        return "Alteração realizada.";
+    }
+
+
+
+    public function deleteReview(Request $req)
+    {
+        $validateData = $req->validate([
+            'id_user' => ['required'],
+            'id_review' => ['required']
+        ]);
+        $review = DB::table('reviews')
+        ->where('fk_id_users', $req->id_user)
+        ->where('fk_id_reviews', $req->id_review)->delete();
+        return "Exclusão realizada.";
     }
 }
