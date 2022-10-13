@@ -192,7 +192,7 @@ class ReviewController extends Controller
     {
         $validateData = $req->validate([
             'id_user' => ['required'],
-            'id_review' => ['required']
+            'id_review' => ['required'],
         ]);
         $review = DB::table('reviews')
         ->where('fk_id_users', $req->id_user)

@@ -15,6 +15,10 @@ class ComentsController extends Controller
         ->join('users', 'coments.fk_id_users', '=', 'users.id')
         ->where("coments.fk_id_reviews", "=", $id_review)
         ->orderBy('coments.id', 'desc')->get();
+        for($i = 0; $i < count($coments); $i++)
+        {
+            $coments[$i]->password = "";
+        }
         return $coments ? $coments : '';
     }
 
@@ -49,10 +53,12 @@ class ComentsController extends Controller
         $validateData = $req->validate([
             'text_coment' => ['required'],
             'id_user' => ['required'],
-            'id_review' => ['required']
+            'id_review' => ['required'],
+            'id_coment' => ['required'],
         ]);
         $coment = Coments::where("fk_id_users", '=', $req->id_user)
-        ->where("fk_id_reviews", '=', $req->id_review)->update([
+        ->where("fk_id_reviews", '=', $req->id_review)
+        ->where('coments.id', $req->id_coment)->update([
             "text_coment" => $req->text_coment,
         ]);
         return "Alteração realizada.";
@@ -64,11 +70,13 @@ class ComentsController extends Controller
     {
         $validateData = $req->validate([
             'id_user' => ['required'],
-            'id_review' => ['required']
+            'id_review' => ['required'],
+            'id_coment' => ['required'],
         ]);
         $coment = DB::table('coments')
         ->where("fk_id_users", '=', $req->id_user)
-        ->where("fk_id_reviews", '=', $req->id_review)->detete();
+        ->where("fk_id_reviews", '=', $req->id_review)
+        ->where('coments.id', $req->id_coment)->detete();
         return "Exclusão realizada.";
     }
 }

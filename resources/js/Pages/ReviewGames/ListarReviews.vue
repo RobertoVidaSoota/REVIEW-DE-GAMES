@@ -53,7 +53,7 @@
         nav(link){location.href = link},
         sendRemoveReview(id_review, id_user)
         {
-          
+
         }
       },
       props:[
@@ -79,9 +79,7 @@
   margin: 0 auto 30px auto;
   width: 80%;
 }
-.box_img_my_review{
-  
-}
+.box_img_my_review{color: #000;}
 .box_img_my_review img
 {
   height: 400px;
