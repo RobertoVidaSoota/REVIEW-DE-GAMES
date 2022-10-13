@@ -13,7 +13,7 @@
                 <!-- FORMULÁRIO -->
                 <form @submit.prevent="sendFormLogin" >
 
-                    <div v-show="erroForm!==''" class="alert alert-danger">
+                    <div v-if="erroForm!==''" class="alert alert-danger">
                         <b>{{ erroForm }}</b>
                     </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <MenuCustom :user="user" :idUserContext="idUserPf" />
+    <MenuCustom :user="user" :idUserContext="idUserContext" />
 
     <div class="container">
 
@@ -30,12 +30,12 @@
 
           <div class="col-sm-6">
 
-            <div v-show="erroUpdateData"
+            <div v-if="erroUpdateData"
             class="alert alert-danger">
               <b>{{ erroUpdateData }}</b>
             </div>
 
-            <div v-show="confirmUpdate"
+            <div v-if="confirmUpdate"
             class="alert alert-success">
               <b>{{ confirmUpdate }}</b>
             </div>
@@ -121,6 +121,7 @@
     data()
     {
       return{
+        idUserContext: "",
         name_user: this.user.name,
         role: this.user.role,
         about: this.user.about,
@@ -131,7 +132,7 @@
     },
     mounted()
     {
-      this.idUserPf = this.user.id ? this.user.id : '';
+      this.idUserContext = this.user.id ? this.user.id : '';
     },
     methods:
     {
@@ -170,7 +171,7 @@
     },
     props:{
         userData: Object,
-        user: Object
+        user: Object,
     },
     components:{MenuCustom}
   }

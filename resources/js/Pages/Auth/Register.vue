@@ -10,7 +10,7 @@
                         REVIWW
                     </h2>
 
-                    <div v-show="erroForm!==''" class="alert alert-danger">
+                    <div v-if="erroForm!==''" class="alert alert-danger">
                         <b>{{ erroForm }}</b>
                     </div>
 

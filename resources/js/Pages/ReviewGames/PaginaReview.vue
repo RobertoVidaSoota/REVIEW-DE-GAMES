@@ -58,23 +58,23 @@
 
             <h4>Comentários</h4>
 
-            <button v-show="user.length!==0"
+            <button v-show="user"
             id="botaoCancelar"
              class="botao_cancelar mt-5 esconder_elemento" 
             v-on:click="buttonComentar">
                 Cancelar
             </button>
 
-            <button v-show="user.length!==0"
+            <button v-show="user"
             id="botaoComentar"
             class="botao_confirmar mt-5"
             v-on:click="buttonComentar">
                 Comentar
             </button>
 
-            <div v-show="user.length!==0"
+            <div v-show="user"
             id="box_form_comentario" class="esconder_elemento">
-                <div v-show="erroComent!==''"
+                <div v-if="erroComent!==''"
                 class="alert alert-danger">
                     <b>{{ erroComent }}</b>
                 </div>
@@ -134,8 +134,8 @@
         },
         mounted()
         {
-            this.idUserDash = this.user.id ? this.user.id : '';
             this.transformToHtml(this.review[0].desc_review)
+            this.idUserDash = this.user.id ? this.user.id : '';
         },
         methods:
         {

@@ -68,6 +68,7 @@ class ReviewController extends Controller
         ->where('reviews.id', "=", $id_review)->get();
         $date_create = date_create($reviews[0]->date_review);
         $reviews[0]->date_review = date_format($date_create, "d/m/Y");
+        $reviews[0]->password = "";
         $seeMore = DB::table('reviews')->orderBy('id', 'desc')->limit(3)->get();
         $coments = $coment->getComentOneReview($id_review);
         return Inertia::render('ReviewGames/PaginaReview', [ 
@@ -85,7 +86,7 @@ class ReviewController extends Controller
             'titulo_principal' => ['required', 'max:180'],
             'thumb' => ['required', 'url', 'max:320'],
             'desc_review' => ['required'],
-            'rate' => ['required', 'numeric', 'digits_between:1,5'],
+            'rate' => ['required', 'numeric', 'gte:1', 'lte:5'],
             'name_game' => ['required', 'max:180'],
             'collection' => ['required', 'max:180'],
             'developer' => ['required', 'max:180'],
@@ -128,13 +129,31 @@ class ReviewController extends Controller
 
 
 
+    public function pageUpdateReview(Request $req)
+    {
+        $reviews = DB::table('reviews')
+        ->select("*", DB::raw("reviews.id as reviews_id"))
+        ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+        ->join('videogames', 'reviews.id', '=', 'videogames.fk_id_reviews')
+        ->where('reviews.id', "=", $req->id_review)
+        ->where('users.id', $req->id_user)->get();
+        $reviews[0]->password = "";
+        return Inertia::render('ReviewGames/CadastrarReview', 
+            [
+                'toUpdate' => true,
+                'review' => $reviews
+            ]);
+    }
+
+
+
     public function updateReview(Request $req)
     {
         $validateData = $req->validate([
             'titulo_principal' => ['required', 'max:180'],
             'thumb' => ['required', 'url', 'max:320'],
             'desc_review' => ['required'],
-            'rate' => ['required', 'numeric', 'digits_between:1,5'],
+            'rate' => ['required', 'numeric', 'gte:1', 'lte:5'],
             'name_game' => ['required', 'max:180'],
             'collection' => ['required', 'max:180'],
             'developer' => ['required', 'max:180'],
@@ -146,6 +165,7 @@ class ReviewController extends Controller
             'id_review' => ['required']
         ]);
         $review = Reviews::where('fk_id_users', $req->id_user)
+        ->where('reviews.id', $req->id_review)
         ->update([
             'name_review' => $req->titulo_principal,
             'desc_review' => $req->desc_review,

@@ -23,10 +23,11 @@
         </div>
         
         <div class="box_button_my_review">
-          <button class="botao_medio">
+          <button @click.prevent="nav('/edit-review-user/'+r.id+'/'+user.id)" class="botao_medio">
             Editar
           </button>
-          <button class="botao_cancelar">
+          <button @click.prevent="sendRemoveReview(r.id, user.id)" 
+          class="botao_cancelar">
             Remover
           </button>
         </div>
@@ -49,7 +50,11 @@
       },
       mounted(){},
       methods:{
-        nav(link){location.href = link}
+        nav(link){location.href = link},
+        sendRemoveReview(id_review, id_user)
+        {
+          
+        }
       },
       props:[
         'reviews',

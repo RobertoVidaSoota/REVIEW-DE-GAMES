@@ -16,7 +16,7 @@
 
         <!-- FORMULÁRIO DE REVIEW -->
         <div id="box_form_review">
-            <form v-on:submit.prevent="sendAddReview">
+            <form v-on:submit.prevent="submitNow">
 
                 <div class="box_input_review">
                     <input v-model="titulo_principal"
@@ -57,13 +57,7 @@
                     <input v-model="year" type="text" placeholder="Ano de lançamento">
                 </div>
 
-                <h2>Requisitos</h2>
-
-                <div class="box_input_review">
-                    <textarea v-model="requirementsGame" 
-                    placeholder="Requisitos para jogar no computador (Markdown)" 
-                    cols="30" rows="10"></textarea>
-                </div>
+                <h2>Nota Final</h2>
 
                 <div class="box_input_review">
                     <input v-model="rate" type="text" placeholder="Nota Final">
@@ -111,8 +105,28 @@ export default {
             gender: "",
             version: "",
             year: "",
-            requirementsGame: "",
             erroForm: "",
+        }
+    },
+    created()
+    {
+        if(this.toUpdate)
+        {
+            if(this.user.id != location.pathname.split('/')[3])
+            {
+                history.back()
+            }
+            this.titulo_principal = this.review[0].name_review
+            this.thumb = this.review[0].thumb
+            this.desc_review = this.review[0].desc_review
+            this.rate = this.review[0].rate
+            this.name_game = this.review[0].name_game
+            this.collection = this.review[0].collection
+            this.developer = this.review[0].developer
+            this.owner = this.review[0].owner
+            this.gender = this.review[0].gender
+            this.version = this.review[0].version
+            this.year = this.review[0].year
         }
     },
     methods:
@@ -123,6 +137,12 @@ export default {
             var converter = new showdown.Converter()
             let text = e.target.value
             content.innerHTML = converter.makeHtml(text)
+        },
+        submitNow()
+        {
+            if(!this.toUpdate){ this.sendAddReview() }
+            else
+            { this.sendUpdateReview() }
         },
         sendAddReview()
         {
@@ -139,18 +159,44 @@ export default {
                 gender: this.gender,
                 version: this.version,
                 year: this.year,
-                requirements: this.requirementsGame,
                 id_user: this.user.id
             }
             axios.post('/api/add-review', body).then(res => 
             {
-                if(res.data == true){
-                    location.href = "/perfil/".body.id_user
+                if(res){
+                    location.href = "/perfil/"+body.id_user
                 }
             }, e => { 
               this.erroForm = Object.values(e.response.data.errors)[0][0]
             })
-        }   
+        },
+        sendUpdateReview()
+        {
+            let body = 
+            {
+                titulo_principal: this.titulo_principal,
+                thumb: this.thumb,
+                desc_review: this.desc_review,
+                rate: this.rate,
+                name_game: this.name_game,
+                collection: this.collection,
+                developer: this.developer,
+                owner: this.owner,
+                gender: this.gender,
+                version: this.version,
+                year: this.year,
+                id_user: this.user.id,
+                id_review: this.review[0].reviews_id
+            }
+            axios.post('/api/update-review', body).then(res => 
+            {
+                if(res){
+                    location.href = "/perfil/"+body.id_user
+                }
+            }, e => { 
+              this.erroForm = Object.values(e.response.data.errors)[0][0]
+            })
+        }
     },
     components:
     {
@@ -158,6 +204,8 @@ export default {
     props:
     {
         user: Object,
+        toUpdate: Boolean,
+        review: Object
     }
 }
 </script>
@@ -212,5 +260,6 @@ export default {
 {
     word-wrap: break-word;
 }
+textarea{height: 380px}
 
 </style>

@@ -65,10 +65,10 @@
                         </div>
                     </li>
                 </ul>
-                <div v-show="idUserContext" 
+                <div v-if="idUserContext" 
                 class="ms-auto nav-item">
                     <a href="#" class="nav-link link_auth">
-                       {{ user.name }}
+                       {{ this.user.name }}
                     </a>
                     <div class="box_nav_item_down">
                         <p><a @click.prevent="nav('/perfil/'+user.id)" href="#">
@@ -77,7 +77,7 @@
                         <p><a @click.prevent="logOutUser()" href="#">Sair</a></p>
                     </div>
                 </div>
-                <div v-show="idUserContext==''" 
+                <div v-if="idUserContext==''" 
                 class="ms-auto nav-item">
                     <a href="/login" class="nav-link">
                         Fazer login
@@ -111,6 +111,8 @@ export default {
     },
 }
 </script>
+
+
 
 
 <style>
