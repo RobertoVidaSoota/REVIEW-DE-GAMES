@@ -26,8 +26,8 @@
           <button @click.prevent="nav('/edit-review-user/'+r.id+'/'+user.id)" class="botao_medio">
             Editar
           </button>
-          <button @click.prevent="sendRemoveReview(r.id, user.id)" 
-          class="botao_cancelar">
+          <button @click.prevent="removeReview(r.id, user.id)" 
+          class="botao_cancelar" data-bs-toggle="modal" data-bs-target="#modal_message">
             Remover
           </button>
         </div>
@@ -36,6 +36,27 @@
     </div>
     
   </div>
+
+  <div class="modal" id="modal_message">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Tem certeza que quer apagar a review ?</p>
+
+                    <div id="box_button_modal_delete">
+                        <button class="botao_confirmar" data-bs-dismiss="modal">
+                            Não
+                        </button>
+                        <button 
+                        @click.prevent="sendRemoveReview()"
+                        class="botao_medio" data-bs-dismiss="modal">
+                            sim
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
   
 </template>
@@ -46,14 +67,34 @@
       data()
       {
           return{
+            id_var_review: "",
+            id_var_user: ""
           }
       },
       mounted(){},
       methods:{
         nav(link){location.href = link},
-        sendRemoveReview(id_review, id_user)
+        removeReview(id_review, id_user)
         {
-
+          this.id_var_review = id_review
+          this.id_var_user = id_user
+        },
+        sendRemoveReview()
+        {
+          axios.post('/api/delete-review', {
+            id_user: this.id_var_user, 
+            id_review: this.id_var_review})
+          .then(res => 
+          {
+            for(let i = 0; i < this.reviews.length; i++)
+            {
+                if(this.reviews[i].reviews_id == this.id_var_review)
+                {
+                    this.reviews.splice(i, 1)
+                }
+            }
+            console.log(res)
+          }, e => {console.log(e)})
         }
       },
       props:[
@@ -95,5 +136,13 @@
   display: flex;
   gap: 10px;
 }
-
+#modal_message
+{
+    padding: 230px 0 0 0;
+}
+#box_button_modal_delete
+{
+    display: flex;
+    gap: 0 10px;
+}
 </style>

@@ -122,6 +122,7 @@ class ReviewController extends Controller
     public function getUserReviews(Request $req)
     {
         $review = DB::table('reviews')
+        ->select("*", DB::raw("reviews.id as reviews_id"))
         ->where('reviews.fk_id_users', '=', $req->id_user)
         ->limit(5)->orderBy('reviews.id', 'desc')->get();
         return Inertia::render('ReviewGames/ListarReviews', ['reviews' => $review]);
@@ -196,7 +197,7 @@ class ReviewController extends Controller
         ]);
         $review = DB::table('reviews')
         ->where('fk_id_users', $req->id_user)
-        ->where('fk_id_reviews', $req->id_review)->delete();
+        ->where('reviews.id', $req->id_review)->delete();
         return "Exclusão realizada.";
     }
 }
