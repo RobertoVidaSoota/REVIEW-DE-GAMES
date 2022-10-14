@@ -120,8 +120,9 @@
                             href="#" class="" :id="'editar'+c.coments_id">
                             editar
                             </a>
-                            <a 
-                            href="#" class="" :id="'excluir'+c.coments_id">
+                            <a @click.prevent="deleteComent(c.fk_id_users, c.coments_id)"
+                            href="#" class="" :id="'excluir'+c.coments_id"
+                            data-bs-toggle="modal" data-bs-target="#modal_message">
                                 excluir
                             </a>
                             <a @click.prevent="editComent(c.coments_id)"
@@ -152,8 +153,34 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div class="modal" id="modal_message">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Tem certeza que quer apagar o comentário ?</p>
+
+                    <div id="box_button_modal_delete">
+                        <button class="botao_confirmar" data-bs-dismiss="modal">
+                            Não
+                        </button>
+                        <button 
+                        @click.prevent="sendDeleteComent()"
+                        class="botao_medio" data-bs-dismiss="modal">
+                            sim
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </template>
+
+
 
 
 
@@ -167,10 +194,14 @@
             return{
                 text_coment: "",
                 text_edit_coment:"",
-                canEditComent: false,
+                valueModalDelete: {
+                    id_coment: "",
+                    id_user: "",
+                },
                 idUserDash: "",
                 erroComent: "",
-                erroEditComent: ""
+                erroEditComent: "",
+                notifyConfirm: false
             }
         },
         mounted()
@@ -272,6 +303,33 @@
                     this.erroEditComent = 
                         Object.values(e.response.data.errors)[0][0]
                 })
+            },
+            deleteComent(id_user, id_coment)
+            {
+                this.valueModalDelete.id_user = id_user
+                this.valueModalDelete.id_coment = id_coment
+            },
+            sendDeleteComent()
+            {
+                let body =
+                {
+                    id_coment: this.valueModalDelete.id_coment,
+                    id_user: this.valueModalDelete.id_user,
+                    id_review: location.pathname.split('/')[2]
+                }
+                console.log(body)
+                axios.post('/api/delete-coment', body).then((res) => 
+                {
+                    for(let i = 0; i < this.coments.length; i++)
+                    {
+                        if(this.coments[i].coments_id == body.id_coment)
+                        {
+                            this.coments.splice(i, 1)
+                        }
+                    }
+                    console.log(res)
+                    this.notifyConfirm = true
+                },e => console.log(e))
             },
             navToReview(id)
             {
@@ -376,6 +434,15 @@
     {
         display: flex;
         justify-content: space-between;
+        gap: 0 10px;
+    }
+    #modal_message
+    {
+        padding: 230px 0 0 0;
+    }
+    #box_button_modal_delete
+    {
+        display: flex;
         gap: 0 10px;
     }
 </style>

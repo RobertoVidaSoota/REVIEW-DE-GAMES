@@ -29,7 +29,7 @@ Route::post('/update-review', [ReviewController::class, "updateReview"]);//
 
 Route::post('/update-coment', [ComentsController::class, "updateComent"]);//
 
-Route::delete('/delete-review', [ReviewController::class, "deleteReview"]);
+Route::post('/delete-review', [ReviewController::class, "deleteReview"]);
 
-Route::delete('/delete-coment', [ComentsController::class, "deleteReview"]);
+Route::post('/delete-coment', [ComentsController::class, "deleteComent"]);
 

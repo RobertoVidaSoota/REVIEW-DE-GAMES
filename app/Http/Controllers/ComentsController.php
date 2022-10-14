@@ -76,7 +76,7 @@ class ComentsController extends Controller
         $coment = DB::table('coments')
         ->where("fk_id_users", '=', $req->id_user)
         ->where("fk_id_reviews", '=', $req->id_review)
-        ->where('coments.id', $req->id_coment)->detete();
+        ->where('coments.id', $req->id_coment)->delete();
         return "Exclusão realizada.";
     }
 }
