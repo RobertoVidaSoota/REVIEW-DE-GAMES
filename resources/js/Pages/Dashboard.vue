@@ -9,7 +9,7 @@
 
       <div class="reviews_inicio row">
          
-         <div v-for="r in reviews" :key="r.id"
+         <div v-for="r in reviewList" :key="r.id"
          class="col-sm-6 col-md-4 col-lg-3 review" @click="navToReview(r.reviews_id)">
             <div class="box_img_review">
                <img :src="r.thumb">
@@ -26,6 +26,12 @@
          </div>
 
       </div>
+
+      <!-- <div class="position-absolute box_spinner">
+         <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+         </div>
+      </div> -->
    </div>
 </template>
 
@@ -39,15 +45,38 @@ export default
    data()
    {
       return{
-         idUserDash: ""
+         idUserDash: "",
+         reviewList: this.reviews
       }
    },
    mounted()
    {
+      // PEGAR MAIS
+      this.moreData()
+
       this.idUserDash = this.user.id ? this.user.id : '';
    },
    methods:
    {
+      moreData()
+      {
+         let qt = 20
+         let ref = this
+         window.addEventListener('scroll', function()
+         {
+            if(window.scrollY + window.innerHeight >=
+            document.documentElement.scrollHeight
+            )
+            {
+               axios.get('/api/more-data/reviews-root/'+qt)
+               .then(res => 
+               {
+                  ref.reviewList = [ ...ref.reviewList, ...res.data]
+                  qt += 20
+               })
+            }
+         })
+      },
       navToReview(id)
       {
          location.href = "/review/"+id
@@ -90,12 +119,15 @@ export default
       margin: 5px 0 0 0;
    }
    .review:hover{
-      border: 1px solid var(--bordas-input);
-      padding: 6px;
+      opacity: 0.8;
    }
    .box_title_rate_review
    {
       justify-content: space-between;
    }
    .box_title_rate_review h2{width: fit-content;}
+   .box_spinner
+   {
+      z-index: 20;
+   }
 </style>

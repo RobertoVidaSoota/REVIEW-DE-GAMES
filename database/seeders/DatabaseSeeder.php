@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         for($i = 0; $i < 200; $i++)
         {
             $reviews = Reviews::create([
-                'name_review' => $faker->name(),
+                'name_review' => $faker->text(15),
                 'desc_review' => $faker->text(200),
                 'thumb' => $arrayThumb[rand(0, 31)],
                 'date_review' => date('y-m-d'),
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 'fk_id_users' => rand(1, 2)
             ]);
             $videogame = Videogames::create([
-                'name_game' => $faker->text(18),
+                'name_game' => $faker->text(10),
                 'developer' => $developer[rand(0, 3)],
                 'collection' => 'All',
                 'owner' => 'My studio',

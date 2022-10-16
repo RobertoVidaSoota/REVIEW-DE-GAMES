@@ -200,4 +200,19 @@ class ReviewController extends Controller
         ->where('reviews.id', $req->id_review)->delete();
         return "Exclusão realizada.";
     }
+
+
+
+    public function getMoreReviews(Request $req)
+    {
+        $reviews = DB::table('reviews')
+        ->select("*", DB::raw("reviews.id as reviews_id"))
+        ->join('users', 'fk_id_users', '=', 'users.id')
+        ->limit(20)->offset($req->qt)->orderBy('reviews.id', 'desc')->get();
+        for($i = 0; $i < count($reviews); $i++)
+        {
+            $reviews[$i]->password = "";
+        }
+        return $reviews;
+    }
 }
