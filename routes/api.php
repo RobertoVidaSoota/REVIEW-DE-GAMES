@@ -36,5 +36,8 @@ Route::post('/delete-coment', [ComentsController::class, "deleteComent"]);//
 Route::prefix('/more-data')->group(function()
 {
     Route::get('/reviews-root/{qt}', [ReviewController::class, "getMoreReviews"]);
+
+    Route::get('/reviews-group/{group}/{sub_group}/{qt}', 
+    [ReviewController::class, "getMoreGroupReviews"]);
 });
 

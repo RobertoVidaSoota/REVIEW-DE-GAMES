@@ -215,4 +215,36 @@ class ReviewController extends Controller
         }
         return $reviews;
     }
+
+
+
+    public function getMoreGroupReviews(Request $req)
+    {
+        $group = $req->group;
+        $sub_group = $req->sub_group;        
+        if($group === 'year')
+        {
+            $my_years = explode("-", $sub_group);
+            $reviews = DB::table('reviews')
+            ->select("*", DB::raw("reviews.id as reviews_id"))
+            ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+            ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
+            ->whereBetween('videogames.'.$group, [$my_years[0], $my_years[1]])
+            ->limit(20)->offSet($req->qt)->orderBy('reviews.id', 'desc')->get();
+        }
+        else
+        {
+            $reviews = DB::table('reviews')
+            ->select("*", DB::raw("reviews.id as reviews_id"))
+            ->join('users', 'reviews.fk_id_users', '=', 'users.id')
+            ->join('videogames', 'videogames.fk_id_reviews', '=', 'reviews.id')
+            ->where('videogames.'.$group, '=', $sub_group)
+            ->limit(20)->offSet($req->qt)->orderBy('reviews.id', 'desc')->get();
+        }
+        for($i = 0; $i < count($reviews); $i++)
+        {
+            $reviews[$i]->password = "";
+        }
+        return $reviews;
+    }
 }

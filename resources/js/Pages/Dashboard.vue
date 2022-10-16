@@ -27,12 +27,13 @@
 
       </div>
 
-      <!-- <div class="position-absolute box_spinner">
+      <div class="d-flex justify-content-center box_spinner">
          <div class="spinner-border" role="status">
             <span class="visually-hidden"></span>
          </div>
-      </div> -->
+      </div>
    </div>
+
 </template>
 
 
@@ -62,20 +63,38 @@ export default
       {
          let qt = 20
          let ref = this
+         let path = location.pathname.split('/')
+         if(path[1] == ""){
          window.addEventListener('scroll', function()
          {
             if(window.scrollY + window.innerHeight >=
-            document.documentElement.scrollHeight
-            )
+            document.documentElement.scrollHeight)
             {
                axios.get('/api/more-data/reviews-root/'+qt)
                .then(res => 
                {
-                  ref.reviewList = [ ...ref.reviewList, ...res.data]
+                  ref.reviewList = [...ref.reviewList, ...res.data]
                   qt += 20
                })
             }
          })
+         }else
+         {
+         window.addEventListener('scroll', function()
+         {
+            if(window.scrollY + window.innerHeight >=
+            document.documentElement.scrollHeight)
+            {
+               axios.get('/api/more-data/reviews-group/'+path[2]+'/'+path[3]+'/'+qt)
+               .then(res => 
+               {
+                  ref.reviewList = [...ref.reviewList, ...res.data]
+                  qt += 20
+               })
+            }
+         })
+         }
+         
       },
       navToReview(id)
       {
@@ -128,6 +147,6 @@ export default
    .box_title_rate_review h2{width: fit-content;}
    .box_spinner
    {
-      z-index: 20;
+      margin: 8px 0;
    }
 </style>
