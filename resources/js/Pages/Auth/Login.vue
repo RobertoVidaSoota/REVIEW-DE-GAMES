@@ -42,6 +42,8 @@
                         />
                     </div>
 
+                    <div class="h-captcha" data-sitekey="b435f683-b5cc-47ed-96d8-66fd751164a5"></div>
+
                     <div class="mt-4">
                         <div class="row">
 
@@ -69,6 +71,7 @@
         
 </template>
 
+
 <script>
     
     export default
@@ -87,22 +90,31 @@
         {
             sendFormLogin()
             {
-                let body = {email: this.form.email, password: this.form.password}
-                axios.post('/make-login-user', body)
-                .then(res => {
-                    if(res.data == "login efetuado")
-                    {
-                        location.href = "/"
-                    }else
-                    {this.erroForm = res.data}
-                }, e => {
-                    this.erroForm = Object.values(e.response.data.errors)[0][0]
-                })
+                if (hcaptcha.getResponse() !== "")
+                {
+                    let h_response = document.getElementsByName("h-captcha-response")[0].value
+                    let body = {
+                        email: this.form.email, 
+                        password: this.form.password,
+                        h_response: h_response
+                    }
+                    axios.post('/make-login-user', body)
+                    .then(res => {
+                        if(res.data == "login efetuado")
+                        {
+                            location.href = "/"
+                        }else
+                        {this.erroForm = res.data}
+                    }, e => {
+                        this.erroForm = Object.values(e.response.data.errors)[0][0]
+                    })
+                    return true
+                }
+                this.erroForm = "O campo de sou humano não foi selecionado."
             }
         },
         components:
-        {
-            
+        { 
         },
         props:
         {

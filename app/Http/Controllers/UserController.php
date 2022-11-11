@@ -11,6 +11,8 @@ class UserController extends Controller
 {
     public function makeLogin(Request $req)
     {
+        if($this->hcaptchaVerify($req->h_response) == false)
+        { return "Verificação hcaptcha inválida"; }
         $validateData = $req->validate([
             'email' => ['email', 'required'],
             'password' => ['required', 'min:6']
@@ -23,7 +25,27 @@ class UserController extends Controller
         {
             return "Email ou senha invalidos";
         }
+    }
 
+
+
+    private function hcaptchaVerify($hcaptcha)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://hcaptcha.com/siteverify",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => [
+                "response" => $hcaptcha,
+                "secret" => "BOTAR O SECRET AQUI E NÃO NO .env"
+            ]
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $resArray = json_decode($response, true);
+        $success = $resArray['success'] ?? false;
+        return $response ?? false;
     }
 
 
