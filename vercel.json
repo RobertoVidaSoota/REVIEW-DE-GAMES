@@ -1,8 +1,8 @@
 {
     "version": 2,
     "builds": [
-        { "src": "/api/index.php", "use": "vercel-php@0.5.2" },
-        { "src": "/public/**", "use": "@vercel/static" }
+        { "src": "/api/index.php", "use": "vercel-php@0.5.2" }
+        
     ],
     "routes": [
         {
@@ -15,9 +15,9 @@
         }
     ],
     "env": {
-        "APP_NAME": "Laravel",
+        "APP_NAME": "Review de Games",
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://revieww-games.vercel.app",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
