@@ -1,0 +1,174 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app.173a6b7c.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Auth/Login.vue",
+      "resources/js/Pages/Auth/Perfil.vue",
+      "resources/js/Pages/Auth/Register.vue",
+      "resources/js/Pages/Dashboard.vue",
+      "resources/js/Pages/ReviewGames/CadastrarReview.vue",
+      "resources/js/Pages/ReviewGames/ListarReviews.vue",
+      "resources/js/Pages/ReviewGames/PaginaReview.vue"
+    ],
+    "css": [
+      "assets/app.03b704aa.css"
+    ],
+    "integrity": "sha384-brQ/Z15vkL2oa0i9+DUP6QrV8USW6Egvofkw6fzWNIEtBZbQCYdx0uaUalPbkSQx"
+  },
+  "resources/js/Pages/Auth/Login.vue": {
+    "file": "assets/Login.433d5891.js",
+    "src": "resources/js/Pages/Auth/Login.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/Login.73bc8658.css"
+    ],
+    "integrity": "sha384-WHOb+R9F+3MpM94A8qe3f2xa4Atw4yDKxEi5gUdjXtU3aQAsNMWUYrs917tBztmh"
+  },
+  "__plugin-vue_export-helper.cdc0426e.js": {
+    "file": "assets/_plugin-vue_export-helper.cdc0426e.js",
+    "integrity": "sha384-wV/FyIfkoKuneA9gx32UbcC1rWydYJhlr+cMCHu0oN57ZtVcBz8nUCI/A5rPOyHo"
+  },
+  "resources/js/Pages/Auth/Perfil.vue": {
+    "file": "assets/Perfil.fca025c7.js",
+    "src": "resources/js/Pages/Auth/Perfil.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_MenuCustom.7f90203e.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/Perfil.42b2dbca.css"
+    ],
+    "integrity": "sha384-q8IR/6Bm7uxJM4S1GpwCgdiCWpxXnJ8N/fUJ+ZDH+8RYQnjvYaXMEQzIekMfZPFE"
+  },
+  "_MenuCustom.7f90203e.js": {
+    "file": "assets/MenuCustom.7f90203e.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/MenuCustom.10611e75.css"
+    ],
+    "integrity": "sha384-/1QslNozXqYTahTkO5Q5pqXIltPWQZeRHH3xt5c7u/SekQJh2+KVmDKluMdqV+Vq"
+  },
+  "resources/js/Pages/Auth/Register.vue": {
+    "file": "assets/Register.54a06767.js",
+    "src": "resources/js/Pages/Auth/Register.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/Register.41d5b938.css"
+    ],
+    "integrity": "sha384-0ora/vAa4EDm10YeIyCB18DpveERUp5rlNxjheI3D3gfxLHWhMPPmjK1bhGQqsQS"
+  },
+  "resources/js/Pages/Dashboard.vue": {
+    "file": "assets/Dashboard.e328548c.js",
+    "src": "resources/js/Pages/Dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_MenuCustom.7f90203e.js",
+      "__plugin-vue_export-helper.cdc0426e.js",
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/Dashboard.3bee0508.css"
+    ],
+    "integrity": "sha384-CnPk+EVgg1YL2pZx+BE1aPW4Hjo9gEbwI1nf4//FCGjzlBCKQ8P+VUheo8QFetDD"
+  },
+  "resources/js/Pages/ReviewGames/CadastrarReview.vue": {
+    "file": "assets/CadastrarReview.0fb8e0f5.js",
+    "src": "resources/js/Pages/ReviewGames/CadastrarReview.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/CadastrarReview.c786ad49.css"
+    ],
+    "integrity": "sha384-2Jk2l0sB8lLTMhT94Qlp4y/BS+npfGEYyTKm/yTlLjoSwV+AMOJd6+gE0X2+t0Ec"
+  },
+  "resources/js/Pages/ReviewGames/ListarReviews.vue": {
+    "file": "assets/ListarReviews.cdf6776b.js",
+    "src": "resources/js/Pages/ReviewGames/ListarReviews.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/ListarReviews.f96f1701.css"
+    ],
+    "integrity": "sha384-GPRJOZ0PKHDu5cePj+/U1ziGeyhE2YowcHOqe2PT1DNGmFU6PHiHkzLoPotQdkb0"
+  },
+  "resources/js/Pages/ReviewGames/PaginaReview.vue": {
+    "file": "assets/PaginaReview.fb95efa6.js",
+    "src": "resources/js/Pages/ReviewGames/PaginaReview.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_MenuCustom.7f90203e.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper.cdc0426e.js"
+    ],
+    "css": [
+      "assets/PaginaReview.63e87ce2.css"
+    ],
+    "integrity": "sha384-0SfrDLyi21OqAcl/UwfsnYdHJf4RDtr7qV45QNkSv51lxTLDr7LJnGrgNP5PgzVJ"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app.03b704aa.css",
+    "src": "resources/js/app.css",
+    "integrity": "sha384-ikKzM6QEvNgfTMjj/Bc6dJpqCHqabjGS5BiT1BHVPsK2h6rY9mTrrRiZVXUcnmvS"
+  },
+  "resources/js/Pages/Dashboard.css": {
+    "file": "assets/Dashboard.3bee0508.css",
+    "src": "resources/js/Pages/Dashboard.css",
+    "integrity": "sha384-h7Gjkp9esec9Ylh0fasZ4Amqwm1C8nFaVvEPQu4i22SFIqCwbEEtKlPKVoCGBC6N"
+  },
+  "resources/js/Pages/ReviewGames/ListarReviews.css": {
+    "file": "assets/ListarReviews.f96f1701.css",
+    "src": "resources/js/Pages/ReviewGames/ListarReviews.css",
+    "integrity": "sha384-Fhw8G8a4IO6xJeY91mHk2tCyr55+sNBFvd2GKgtvZ7CA18sPlS8onTIgCkoEltG3"
+  },
+  "resources/js/Pages/ReviewGames/PaginaReview.css": {
+    "file": "assets/PaginaReview.63e87ce2.css",
+    "src": "resources/js/Pages/ReviewGames/PaginaReview.css",
+    "integrity": "sha384-T68EST7b0AIjmlUwR+kujAh1O0A0hfMBHpn6f6Vu0VRCGUO2rFb3+tc+cn1ZaMEj"
+  },
+  "resources/js/Pages/Auth/Login.css": {
+    "file": "assets/Login.73bc8658.css",
+    "src": "resources/js/Pages/Auth/Login.css",
+    "integrity": "sha384-It9to5gTVcpPiF5U39xp9oa03jViFePWuShrQ7zaITw1ZRflgNM3xZ0jVaDEsE5G"
+  },
+  "resources/js/Pages/ReviewGames/CadastrarReview.css": {
+    "file": "assets/CadastrarReview.c786ad49.css",
+    "src": "resources/js/Pages/ReviewGames/CadastrarReview.css",
+    "integrity": "sha384-mPV7e3tLsMFIURCfDMGqmZ7CEdSDNBOGVmJfri4R2lE/kDgyy3VdcTa94bycVg62"
+  },
+  "MenuCustom.css": {
+    "file": "assets/MenuCustom.10611e75.css",
+    "src": "MenuCustom.css",
+    "integrity": "sha384-vbjtP5Aylk6lwnL+8hvjSDjxL7btuTyXv0xxJNs8cARbUQUHtQ9trfQbTI91Jq7j"
+  },
+  "resources/js/Pages/Auth/Register.css": {
+    "file": "assets/Register.41d5b938.css",
+    "src": "resources/js/Pages/Auth/Register.css",
+    "integrity": "sha384-1oKUnLtVeAsESn5/03+rYVuQgwTe0nsOFFEZcciOEEtFX0SAE64VE8ZE58y0SHwr"
+  },
+  "resources/js/Pages/Auth/Perfil.css": {
+    "file": "assets/Perfil.42b2dbca.css",
+    "src": "resources/js/Pages/Auth/Perfil.css",
+    "integrity": "sha384-eih85e1rkpwyxYrH/pSsyBgFDTloRD2HHR+X1SHZPM/SwT0sIntPwWzaK4FxAmIp"
+  }
+}
