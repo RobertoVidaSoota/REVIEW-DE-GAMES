@@ -14,4 +14,4 @@ Esse projeto servirá para minha lista de projetos que estou montanto com o intu
 - Vue JS
 - hcaptcha
 
-Se quiser conhecer minhas habilidades entre no meu [linkedim](https://www.linkedin.com/in/roberto-carlos-677851174/).
+Se quiser conhecer minhas habilidades entre no meu [linkedin](https://www.linkedin.com/in/roberto-carlos-677851174/).
