@@ -19,9 +19,6 @@ use Inertia\Inertia;
 |
 */
 
-Route::get("/pegar-assets", function(){
-    
-});
 
 Route::get('/', [ReviewController::class, "getAllReviews"]);//
 
