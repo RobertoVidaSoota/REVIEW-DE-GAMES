@@ -132,7 +132,7 @@
     "integrity": "sha384-ikKzM6QEvNgfTMjj/Bc6dJpqCHqabjGS5BiT1BHVPsK2h6rY9mTrrRiZVXUcnmvS"
   },
   "resources/js/Pages/Dashboard.css": {
-    "file": "build/assets/Dashboard.3bee0508.css",
+    "file": "assets/Dashboard.3bee0508.css",
     "src": "resources/js/Pages/Dashboard.css",
     "integrity": "sha384-h7Gjkp9esec9Ylh0fasZ4Amqwm1C8nFaVvEPQu4i22SFIqCwbEEtKlPKVoCGBC6N"
   },
