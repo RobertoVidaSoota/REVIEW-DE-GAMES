@@ -19,6 +19,9 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('estaticos/', function(){
+    require "/build/assets/app.173a6b7c.js";
+});
 
 Route::get('/', [ReviewController::class, "getAllReviews"]);//
 
