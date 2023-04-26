@@ -79,7 +79,8 @@
     "imports": [
       "_MenuCustom.7f90203e.js",
       "__plugin-vue_export-helper.cdc0426e.js",
-      "resources/js/app.js"
+      "resources/js/app.js",
+      "assets/Dashboard.3bee0508.css"
     ],
     "css": [
       "assets/Dashboard.3bee0508.css"
