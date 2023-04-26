@@ -17,7 +17,7 @@
     ],
     "env": {
         "APP_NAME": "Review de Games",
-        "APP_ENV": "production",
+        "APP_ENV": "debug",
         "ASSET_URL": "https://review-de-games-rc.vercel.app",
         "APP_DEBUG": "false",
         "APP_URL": "https://review-de-games-rc.vercel.app",
