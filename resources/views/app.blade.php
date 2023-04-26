@@ -18,7 +18,6 @@
         <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
         @routes
         @vite('resources/css/app.css', 'resources/js/app.js')
-        @inertiaHead
     </head>
     <body class="font-sans antialiased">
         @inertia
