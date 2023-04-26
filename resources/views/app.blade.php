@@ -23,4 +23,5 @@
     <body class="font-sans antialiased">
         @inertia
     </body>
+    {{-- { "src": "/build/**", "use": "@vercel/static" } --}}
 </html>
