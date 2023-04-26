@@ -7,7 +7,7 @@
     "routes": [
         {
             "src": "/(css|js|images)/(.*)",
-            "dest": "/build/$1/$2"
+            "dest": "/build/assets/$1/$2"
         },
         {
             "src": "/(.*)",
